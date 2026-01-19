@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronsDown } from 'lucide-react';
-import saalimMain from '../assets/Saalim_main.JPEG';
+import saalimMain from '../assets/Saalim_main3.JPEG';
 
 import SystemGraph from './SystemGraph';
 
