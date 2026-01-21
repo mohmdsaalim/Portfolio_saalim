@@ -58,7 +58,7 @@ const ExperienceItem = ({ exp }) => (
 
 const Experience = () => {
     return (
-        <section id="experience" className="bg-black text-white py-16 px-6 md:px-24 border-t border-white/5 relative z-10">
+        <section id="experience" className="bg-black text-white py-8 px-6 md:px-24 border-t border-white/5 relative z-10">
             <div className="flex flex-col md:flex-row gap-16 md:gap-32">
                 {/* Section Header */}
                 <div className="md:w-1/3">
