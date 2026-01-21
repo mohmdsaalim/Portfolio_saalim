@@ -5,6 +5,7 @@ import TechMarquee from '../components/TechMarquee';
 import Projects from '../components/Projects';
 import ScrollingQuote from '../components/ScrollingQuote';
 import Experience from '../components/Experience';
+import Contact from '../components/Contact';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <Projects />
             <ScrollingQuote />
             <Experience />
+            <Contact />
         </main>
     );
 };
