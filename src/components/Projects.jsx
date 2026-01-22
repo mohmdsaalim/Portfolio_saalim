@@ -5,7 +5,7 @@ const projects = [
     {
         title: "E-Commerce Platform",
         description: "A high-performance e-commerce solution built with Next.js and Go microservices. Features real-time inventory management and stripe integration.",
-        tags: ["Next.js", "Go", "gRPC", "PostgreSQL"],
+        tags: ["React.js", "Go", "RestAPI", "PostgreSQL"],
         link: "#",
         github: "#"
     },
