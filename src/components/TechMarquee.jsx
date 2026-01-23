@@ -4,10 +4,10 @@ import { SiGithub, SiGo, SiJavascript, SiTypescript, SiDocker, SiReact, SiTailwi
 
 const techStack = [
     { name: 'Golang', icon: SiGo, level: 'CORE' },
-    { name: 'Microservices', icon: SiGo, level: 'ADVANCED' },
     { name: 'Docker', icon: SiDocker, level: 'EXPERT' },
     { name: 'Postgres', icon: SiPostgresql, level: 'EXPERT' },
     { name: 'Redis', icon: SiRedis, level: 'ADVANCED' },
+    { name: 'Microservices', icon: SiGo, level: 'ADVANCED' },
     { name: 'React', icon: SiReact, level: 'INTERMEDIATE' },
     { name: 'TypeScript', icon: SiTypescript, level: 'CORE' },
     { name: 'K8s', icon: SiKubernetes, level: 'RESEARCH' },
