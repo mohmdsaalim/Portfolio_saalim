@@ -166,7 +166,7 @@ const About = () => {
                     <div className="lg:col-span-8 flex flex-col justify-center relative">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 relative">
                             <div>
-                                <SectionLabel number="02">Biography</SectionLabel>
+                                <SectionLabel number="02">Biography </SectionLabel>
                                 <p className="text-xl md:text-2xl font-['Outfit'] font-light text-white/70 leading-relaxed mb-8">
                                     High-performance backend architect, specializing in the Go ecosystem and distributed infrastructure.
                                 </p>
@@ -245,7 +245,7 @@ const About = () => {
 
             <div className="absolute bottom-10 left-10 opacity-[0.02] font-mono text-[10px] vertical-text">
                 LIGHTNING_BUS_LINK_v10.1 <br />
-                VECTOR_DENSITY: BALANCED <br />
+                VECTOR_DENSITY: BALANCED<br />
                 STATUS: OPTIMIZED_FLOW
             </div>
         </section>
