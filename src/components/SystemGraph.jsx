@@ -71,6 +71,7 @@ const SystemGraph = ({ className }) => {
                 {/* Animated Data Packets (The dots passing) */}
                 <motion.div
                     className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)] z-20"
+                    style={{ willChange: 'left, top, opacity' }}
                     animate={{
                         left: ['20%', '90%', '90%', '80%'], // Gateway -> Core -> Cache
                         top: ['20%', '50%', '50%', '20%'],
@@ -80,6 +81,7 @@ const SystemGraph = ({ className }) => {
                 />
                 <motion.div
                     className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)] z-20"
+                    style={{ willChange: 'left, top, opacity' }}
                     animate={{
                         left: ['20%', '10%', '90%'], // Gateway -> Auth -> Core
                         top: ['20%', '50%', '50%'],
@@ -89,6 +91,7 @@ const SystemGraph = ({ className }) => {
                 />
                 <motion.div
                     className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)] z-20"
+                    style={{ willChange: 'left, top, opacity' }}
                     animate={{
                         left: ['90%', '80%'], // Core -> DB
                         top: ['50%', '80%'],

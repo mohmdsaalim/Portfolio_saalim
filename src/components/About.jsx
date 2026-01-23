@@ -68,7 +68,8 @@ const LightningPath = ({ d, delay = 0, duration = 5, intensity = 1 }) => (
                 strokeDasharray: '80, 500',
                 filter: 'drop-shadow(0 0 2px white)',
                 animationDelay: `${delay}s`,
-                animationDuration: `${duration}s`
+                animationDuration: `${duration}s`,
+                willChange: 'opacity, stroke-dashoffset'
             }}
         />
     </svg>

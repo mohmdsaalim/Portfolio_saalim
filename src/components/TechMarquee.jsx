@@ -36,6 +36,7 @@ const TechMarquee = () => {
             <div className="relative flex overflow-hidden border-y border-white/5 py-12">
                 <motion.div
                     className="flex whitespace-nowrap"
+                    style={{ willChange: 'transform' }}
                     animate={{ x: [0, "-50%"] }}
                     transition={{
                         x: {

@@ -6,10 +6,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: black;
-  overscroll-behavior: none;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   color: white;
   font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
