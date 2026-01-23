@@ -19,10 +19,10 @@ const Navbar = () => {
     return (
         <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-6 md:px-12 md:py-10 text-white mix-blend-difference">
             <div className="flex items-center gap-12">
-                <div className="flex flex-col">
+                <a href="#home" className="flex flex-col">
                     <span className="font-['Outfit'] font-black text-xl tracking-tighter uppercase leading-none">SAALIM</span>
                     <span className="font-mono text-[8px] text-white/50 tracking-[0.3em] uppercase">Go developer</span>
-                </div>
+                </a>
 
                 <ul className="hidden md:flex items-center gap-8 border-l border-white/20 pl-8">
                     {['ABOUT', 'PROJECTS', 'EXPERIENCE', 'CONTACT'].map((item) => (
