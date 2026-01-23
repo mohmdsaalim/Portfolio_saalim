@@ -1,51 +1,63 @@
-import React from 'react';
-import { Linkedin, Instagram, Github } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Linkedin, Github } from 'lucide-react';
 
 const Navbar = () => {
-    const socialLinks = [
-        { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/' },
-        { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/mohmd.saalim/' },
-        { name: 'GitHub', icon: Github, url: 'https://github.com/mohmdsaalim' }
-    ];
+    const [time, setTime] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => setTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const formattedTime = time.toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-6 md:px-16 md:py-8 font-sans text-white mix-blend-difference">
-            {/* Left Side - All Navigation Links */}
-            <ul className="flex items-center space-x-8 md:space-x-12">
-                {['HOME', 'ABOUT', 'PROJECTS', 'CONTACT'].map((item) => (
-                    <li key={item}>
-                        <a
-                            href={`#${item.toLowerCase()}`}
-                            className="text-sm md:text-lg font-thin tracking-widest hover:text-gray-300 transition-colors duration-200"
-                        >
-                            {item}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+        <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-6 md:px-12 md:py-10 text-white mix-blend-difference">
+            <div className="flex items-center gap-12">
+                <div className="flex flex-col">
+                    <span className="font-['Outfit'] font-black text-xl tracking-tighter uppercase leading-none">SAALIM</span>
+                    <span className="font-mono text-[8px] text-white/50 tracking-[0.3em] uppercase">Go developer</span>
+                </div>
 
-            {/* Right Side - Social Media Icons */}
-            <ul className="flex items-center space-x-6">
-                {socialLinks.map((social) => {
-                    const Icon = social.icon;
-                    return (
-                        <li key={social.name}>
+                <ul className="hidden md:flex items-center gap-8 border-l border-white/20 pl-8">
+                    {['ABOUT', 'PROJECTS', 'EXPERIENCE', 'CONTACT'].map((item) => (
+                        <li key={item}>
                             <a
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block hover:text-gray-290 transition-colors duration-200"
-                                aria-label={social.name}
+                                href={`#${item.toLowerCase()}`}
+                                className="font-mono text-[10px] tracking-widest hover:text-white/85 transition-colors uppercase"
                             >
-                                <Icon
-                                    className="w-5 h-5 md:w-6 md:h-6"
-                                    strokeWidth={1.5}
-                                />
+                                {item}
                             </a>
                         </li>
-                    );
-                })}
-            </ul>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="flex items-center gap-12">
+                <div className="hidden lg:flex flex-col items-end">
+                    <span className="font-mono text-[10px] tracking-widest uppercase text-white/60">System_Time</span>
+                    <span className="font-mono text-[10px] tracking-widest uppercase">{formattedTime} UTC</span>
+                </div>
+
+                <div className="flex items-center gap-6">
+                    <a href="https://github.com/mohmdsaalim" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+                        <Github size={16} strokeWidth={1.5} />
+                    </a>
+                    <a href="https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+                        <Linkedin size={16} strokeWidth={1.5} />
+                    </a>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="font-mono text-[9px] tracking-widest uppercase hidden sm:inline">Operational</span>
+                </div>
+            </div>
         </nav>
     );
 };

@@ -2,87 +2,114 @@ import React from 'react';
 
 const experiences = [
     {
+        id: "ENV_01",
         company: "Bridgeon solutions",
         role: "Go developer intern",
-        period: "2025 - Present",
-        description: "Architecting high-throughput microservices handling 50k+ requests per second. Leading a team of 4 engineers in migrating legacy monoliths to Go-based services.",
-        technologies: ["Go", "docker", "gRPC"]
+        period: "JAN 2025 / PRESENT",
+        location: "REMOTE / HYBRID",
+        description: "Architecting high-throughput microservices handling 50k+ requests per second. Leading a team of 4 engineers in migrating legacy monoliths to Go-based services. Focus on gRPC communication and observability.",
+        technologies: ["Go", "Docker", "gRPC", "Prometheus"]
     },
-    // {
-    //     company: "RapidScale Startup",
-    //     role: "Software Engineer",
-    //     period: "2021 - 2023",
-    //     description: "Developed core payment processing infrastructure. Reduced payment latency by 40% through redis caching strategies and database optimizations.",
-    //     technologies: ["Python", "PostgreSQL", "AWS"]
-    // },
-    // {
-    //     company: "Open Source",
-    //     role: "Core Contributor",
-    //     period: "2020 - 2021",
-    //     description: "Active contributor to high-profile distributed systems libraries. Improved consensus algorithm implementations and documentation.",
-    //     technologies: ["Rust", "Distributed Systems"]
-    // }
+    {
+        id: "ENV_02",
+        company: "Alpha Systems",
+        role: "Backend Research",
+        period: "JUN 2024 / DEC 2024",
+        location: "ONSITE / KOCHI",
+        description: "Developed distributed cache synchronization mechanisms for multi-region deployments. Performance tuning of SQL queries and indexing strategies.",
+        technologies: ["SQL", "Redis", "Kafka", "PostgreSQL"]
+    },
+    {
+        id: "ENV_03",
+        company: "Open Source Collective",
+        role: "Core Contributor",
+        period: "2023 / 2024",
+        location: "GLOBAL",
+        description: "Actively contributed to Go-based networking libraries. Optimized packet parsing logic resulting in 15% reduction in CPU overhead.",
+        technologies: ["Golang", "Wasm", "Protobuf"]
+    }
 ];
 
-const ExperienceItem = ({ exp }) => (
-    <div className="group relative border-l border-white/10 pl-8 pb-16 last:pb-0">
-        {/* Timeline Dot */}
-        <div className="absolute -left-[5px] top-2 w-[9px] h-[9px] bg-zinc-900 border border-zinc-600 rounded-full group-hover:bg-white group-hover:border-white transition-colors duration-300"></div>
+const SectionLabel = ({ children }) => (
+    <div className="flex items-center gap-3 mb-12">
+        <div className="w-2 h-2 bg-white flex-shrink-0" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">{children}</span>
+        <div className="h-[1px] flex-1 bg-white/10" />
+    </div>
+);
 
-        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4">
-            <h3 className="text-xl font-light text-white group-hover:text-zinc-200 transition-colors">
-                {exp.role}
-            </h3>
-            <span className="font-mono text-xs text-zinc-500 uppercase tracking-widest mt-1 md:mt-0">
-                {exp.period}
-            </span>
-        </div>
+const LogEntry = ({ exp }) => (
+    <div className="group relative border-l border-white/5 pl-8 md:pl-16 pb-24 last:pb-8">
+        {/* Node point */}
+        <div className="absolute -left-[3px] top-0 w-[5px] h-[5px] bg-white opacity-20 group-hover:opacity-100 transition-opacity" />
 
-        <h4 className="text-sm font-medium text-zinc-400 mb-4 uppercase tracking-wide">
-            {exp.company}
-        </h4>
+        <div className="flex flex-col md:grid md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+                <div className="font-mono text-[11px] text-white/40 mb-2">{exp.id}</div>
+                <div className="font-mono text-[10px] uppercase tracking-widest text-white/80">{exp.period}</div>
+                <div className="font-mono text-[9px] text-white/20 mt-1 uppercase">{exp.location}</div>
+            </div>
 
-        <p className="text-zinc-400 font-light leading-relaxed mb-6 max-w-2xl">
-            {exp.description}
-        </p>
+            <div className="md:col-span-9">
+                <div className="mb-6">
+                    <h3 className="text-3xl lg:text-4xl font-['Outfit'] font-black tracking-tighter uppercase leading-none mb-2">
+                        {exp.role}
+                    </h3>
+                    <h4 className="font-mono text-xs text-white/40 uppercase tracking-[0.2em]">{exp.company}</h4>
+                </div>
 
-        <div className="flex flex-wrap gap-3">
-            {exp.technologies.map((tech, idx) => (
-                <span key={idx} className="text-xs font-mono text-zinc-600 border-b border-zinc-800 pb-0.5">
-                    {tech}
-                </span>
-            ))}
+                <p className="font-['Outfit'] font-light text-white/60 leading-relaxed max-w-2xl mb-8">
+                    {exp.description}
+                </p>
+
+                <div className="flex flex-wrap gap-4">
+                    {exp.technologies.map((tech, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                            <div className="w-1 h-1 bg-white/20" />
+                            <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest group-hover:text-white/60 transition-colors">
+                                {tech}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     </div>
 );
 
 const Experience = () => {
     return (
-        <section id="experience" className="bg-black text-white py-8 px-6 md:px-24 border-t border-white/5 relative z-10">
-            <div className="flex flex-col md:flex-row gap-16 md:gap-32">
-                {/* Section Header */}
-                <div className="md:w-1/3">
-                    <span className="block font-mono text-xs uppercase tracking-[0.4em] text-zinc-600 mb-6 flex items-center gap-4">
-                        <span className="w-8 h-[1px] bg-zinc-800"></span>
-                        History
-                    </span>
-                    <h2 className="text-5xl font-thin tracking-tight text-white mb-8">
-                        Experience
-                    </h2>
-                    <p className="text-zinc-500 font-light leading-relaxed text-sm max-w-xs">
-                        A clear timeline of professional growth and technical leadership in challenging environments.
-                    </p>
-                </div>
+        <section id="experience" className="bg-black text-white py-24 md:py-32 px-6 md:px-12 lg:px-24 border-t border-white/5 relative z-10 overflow-hidden">
+            <div className="max-w-[1400px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
 
-                {/* Experience List */}
-                <div className="md:w-2/3">
-                    <div className="border-l-0">
-                        {experiences.map((exp, index) => (
-                            <ExperienceItem key={index} exp={exp} />
-                        ))}
+                    <div className="lg:col-span-4">
+                        <SectionLabel>Professional Trajectory</SectionLabel>
+                        <h2 className="text-6xl md:text-8xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.8] mb-12">
+                            SYSTEMS <br />
+                            <span className="text-white/10">HISTORY</span>.
+                        </h2>
+                        <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.3em] leading-loose">
+                            DEPLOY_LOG_V2.0 <br />
+                            TRACKING_SEQUENTIAL_GROWTH <br />
+                            STATUS: ACTIVE
+                        </div>
                     </div>
+
+                    <div className="lg:col-span-8">
+                        <div className="mt-4">
+                            {experiences.map((exp, index) => (
+                                <LogEntry key={index} exp={exp} />
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+            {/* Background elements */}
+            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/[0.02] -z-10" />
+            <div className="absolute top-0 right-1/4 w-[1px] h-full bg-white/[0.02] -z-10" />
         </section>
     );
 };

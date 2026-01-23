@@ -1,5 +1,14 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { Github, Linkedin, Mail, Twitter, ArrowRight } from 'lucide-react';
+
+const SectionLabel = ({ children }) => (
+    <div className="flex items-center gap-3 mb-12">
+        <div className="w-2 h-2 bg-white flex-shrink-0" />
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">{children}</span>
+        <div className="h-[1px] flex-1 bg-white/10" />
+    </div>
+);
 
 const Contact = () => {
     const formRef = useRef();
@@ -11,7 +20,6 @@ const Contact = () => {
     const [status, setStatus] = useState({ type: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Email validation regex
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
@@ -23,7 +31,6 @@ const Contact = () => {
             ...prev,
             [name]: value
         }));
-        // Clear error when user starts typing
         if (status.type === 'error') {
             setStatus({ type: '', message: '' });
         }
@@ -31,20 +38,8 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Validation
-        if (!formData.name.trim()) {
-            setStatus({ type: 'error', message: 'Please enter your name' });
-            return;
-        }
-
-        if (!validateEmail(formData.email)) {
-            setStatus({ type: 'error', message: 'Please enter a valid email address' });
-            return;
-        }
-
-        if (!formData.message.trim()) {
-            setStatus({ type: 'error', message: 'Please enter a message' });
+        if (!formData.name.trim() || !validateEmail(formData.email) || !formData.message.trim()) {
+            setStatus({ type: 'error', message: 'DATA_VALIDATION_FAILED: Check all fields.' });
             return;
         }
 
@@ -52,31 +47,21 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            // EmailJS configuration
-            // TODO: Replace these with your actual EmailJS credentials
             const serviceId = 'YOUR_SERVICE_ID';
             const templateId = 'YOUR_TEMPLATE_ID';
             const publicKey = 'YOUR_PUBLIC_KEY';
 
-            await emailjs.sendForm(
-                serviceId,
-                templateId,
-                formRef.current,
-                publicKey
-            );
+            // await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
 
             setStatus({
                 type: 'success',
-                message: 'Message sent successfully! I\'ll get back to you soon.'
+                message: 'TRANSMISSION_SUCCESSFUL: Handshake established.'
             });
-
-            // Reset form
             setFormData({ name: '', email: '', message: '' });
         } catch (error) {
-            console.error('EmailJS Error:', error);
             setStatus({
                 type: 'error',
-                message: 'Failed to send message. Please try again or email me directly at muhammedsaalim005@gmail.com'
+                message: 'LINK_FAILURE: Use manual override @ muhammedsaalim005@gmail.com'
             });
         } finally {
             setIsSubmitting(false);
@@ -84,105 +69,117 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="bg-black text-white py-16 px-6 md:px-24 border-t border-white/5 relative z-10">
-            <div className="max-w-4xl mx-auto">
-                {/* Section Header */}
-                <div className="mb-12">
-                    <span className="block font-mono text-xs uppercase tracking-[0.4em] text-zinc-600 mb-6 flex items-center gap-4">
-                        <span className="w-8 h-[1px] bg-zinc-800"></span>
-                        Get in Touch
-                    </span>
-                    <h2 className="text-5xl font-thin tracking-tight text-white mb-6">
-                        Contact
-                    </h2>
-                    <p className="text-zinc-500 font-light leading-relaxed text-sm max-w-xl">
-                        Have a project in mind or just want to chat? Feel free to reach out. I'm always open to discussing new opportunities and ideas.
-                    </p>
-                </div>
+        <section id="contact" className="min-h-screen bg-black text-white py-24 md:py-32 px-6 md:px-12 lg:px-24 border-t border-white/5 relative z-10 overflow-hidden">
+            <div className="max-w-[1400px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
 
-                {/* Contact Form */}
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                    {/* Name Field */}
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-mono text-zinc-400 mb-2 uppercase tracking-wide">
-                            Name
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className="w-full bg-zinc-900/50 border border-zinc-800 text-white px-4 py-3 focus:outline-none focus:border-zinc-600 transition-colors font-light"
-                            placeholder="Your name"
-                            disabled={isSubmitting}
-                        />
-                    </div>
-
-                    {/* Email Field */}
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-mono text-zinc-400 mb-2 uppercase tracking-wide">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className="w-full bg-zinc-900/50 border border-zinc-800 text-white px-4 py-3 focus:outline-none focus:border-zinc-600 transition-colors font-light"
-                            placeholder="your.email@example.com"
-                            disabled={isSubmitting}
-                        />
-                    </div>
-
-                    {/* Message Field */}
-                    <div>
-                        <label htmlFor="message" className="block text-sm font-mono text-zinc-400 mb-2 uppercase tracking-wide">
-                            Message
-                        </label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            rows="6"
-                            className="w-full bg-zinc-900/50 border border-zinc-800 text-white px-4 py-3 focus:outline-none focus:border-zinc-600 transition-colors font-light resize-none"
-                            placeholder="Your message..."
-                            disabled={isSubmitting}
-                        ></textarea>
-                    </div>
-
-                    {/* Status Message */}
-                    {status.message && (
-                        <div className={`text-sm font-light ${status.type === 'success' ? 'text-green-400' : 'text-red-400'
-                            }`}>
-                            {status.message}
+                    {/* Left side: Information */}
+                    <div className="lg:col-span-5 flex flex-col justify-between">
+                        <div>
+                            <SectionLabel>Signal Transmission</SectionLabel>
+                            <h2 className="text-7xl md:text-8xl lg:text-9xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.8] mb-12">
+                                GET <br />
+                                <span className="text-white/10">IN</span> <br />
+                                TOUCH.
+                            </h2>
+                            <p className="font-['Outfit'] font-light text-white/40 text-lg leading-relaxed max-w-sm mb-12">
+                                Currently accepting high-impact architectural challenges. Initial response time: &lt; 24h.
+                            </p>
                         </div>
-                    )}
 
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="group relative px-8 py-3 border border-zinc-700 text-white font-mono text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </button>
-                </form>
+                        <div className="space-y-8">
+                            <div>
+                                <div className="font-mono text-[10px] uppercase tracking-widest text-white/20 mb-4">Direct Link</div>
+                                <a href="mailto:muhammedsaalim005@gmail.com" className="text-2xl md:text-3xl font-['Outfit'] font-light hover:text-white/60 transition-colors underline underline-offset-8 decoration-white/10 hover:decoration-white/40">
+                                    muhammedsaalim005@gmail.com
+                                </a>
+                            </div>
 
-                {/* Direct Email */}
-                <div className="mt-12 pt-8 border-t border-white/5">
-                    <p className="text-zinc-500 font-light text-sm">
-                        Or email me directly at{' '}
-                        <a
-                            href="mailto:muhammedsaalim005@gmail.com"
-                            className="text-white hover:text-zinc-300 transition-colors underline"
-                        >
-                            muhammedsaalim005@gmail.com
-                        </a>
-                    </p>
+                            <div className="flex gap-12 pt-8">
+                                <a href="#" className="flex items-center gap-2 group">
+                                    <Github size={18} className="text-white/20 group-hover:text-white transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">GitHub</span>
+                                </a>
+                                <a href="#" className="flex items-center gap-2 group">
+                                    <Linkedin size={18} className="text-white/20 group-hover:text-white transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">LinkedIn</span>
+                                </a>
+                                <a href="#" className="flex items-center gap-2 group">
+                                    <Twitter size={18} className="text-white/20 group-hover:text-white transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">Twitter</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right side: Form */}
+                    <div className="lg:col-span-7">
+                        <SectionLabel>Packet Assembly</SectionLabel>
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-12">
+                            <div className="group border-b border-white/10 focus-within:border-white transition-colors py-4">
+                                <label className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/20 group-focus-within:text-white/60">01_Sender_Identity</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="Enter full name"
+                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-2xl py-2 text-white placeholder:text-white/5"
+                                />
+                            </div>
+
+                            <div className="group border-b border-white/10 focus-within:border-white transition-colors py-4">
+                                <label className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/20 group-focus-within:text-white/60">02_Return_Address</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Enter email address"
+                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-2xl py-2 text-white placeholder:text-white/5"
+                                />
+                            </div>
+
+                            <div className="group border-b border-white/10 focus-within:border-white transition-colors py-4">
+                                <label className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/20 group-focus-within:text-white/60">03_Payload_Content</label>
+                                <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    placeholder="Brief technical requirements or message"
+                                    rows="4"
+                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-2xl py-2 text-white placeholder:text-white/5 resize-none"
+                                />
+                            </div>
+
+                            {status.message && (
+                                <div className={`font-mono text-[10px] tracking-widest uppercase ${status.type === 'success' ? 'text-green-500' : 'text-red-500'}`}>
+                                    {status.message}
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full md:w-auto px-12 py-6 bg-white text-black font-mono text-[11px] uppercase tracking-[0.5em] hover:bg-white/90 transition-all flex items-center justify-center gap-4 group"
+                            >
+                                {isSubmitting ? 'Processing...' : 'Execute_Transmission'}
+                                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        </form>
+
+                        <div className="mt-8 font-mono text-[9px] text-white/10 uppercase tracking-widest text-right">
+                            Protocol: HTTPS/TLS_1.3 <br />
+                            Encryption: AES-256
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+
+            {/* Background elements */}
+            <div className="absolute -bottom-20 -left-10 pointer-events-none select-none h-full justify-center opacity-[0.02]">
+                <span className="font-['Outfit'] text-[25vw] font-black leading-none">saalim</span>
             </div>
         </section>
     );
