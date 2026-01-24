@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { SiGithub, SiGo, SiJavascript, SiTypescript, SiDocker, SiReact, SiTailwindcss, SiPostgresql, SiRedis, SiKubernetes } from 'react-icons/si';
 
 const techStack = [
@@ -14,50 +14,28 @@ const techStack = [
 ];
 
 const TechMarquee = () => {
-    return (
-        <div className="w-full bg-black pt-24 md:pt-32 relative z-30 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 mb-16">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                    <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-2 h-2 bg-white" />
-                            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">Technical Dependencies</span>
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-['Outfit'] font-black tracking-tighter uppercase">STACK_CAPABILITIES</h2>
-                    </div>
-                    <div className="font-mono text-[10px] text-white/20 uppercase tracking-widest text-right">
-                        SYS.VERSION: 4.8.2-RELEASE <br />
-                        ARCHITECTURE: DISTRIBUTED
-                    </div>
-                </div>
-            </div>
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
 
-            {/* Smooth Infinite Marquee */}
-            <div className="relative flex overflow-hidden border-y border-white/5 py-12">
+    // Map scroll progress (0 to 1) to horizontal translation (-20% to 20% or similar)
+    const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+    return (
+        <div ref={containerRef} className="w-full bg-black py-4 relative z-30 overflow-hidden">
+            {/* Smooth Scroll-bound Marquee */}
+            <div className="relative flex overflow-hidden border-y border-white/5 py-6">
                 <motion.div
                     className="flex whitespace-nowrap"
-                    style={{ willChange: 'transform' }}
-                    animate={{ x: [0, "-50%"] }}
-                    transition={{
-                        x: {
-                            repeat: Infinity,
-                            repeatType: "loop",
-                            duration: 30,
-                            ease: "linear"
-                        }
-                    }}
+                    style={{ x, willChange: 'transform' }}
                 >
-                    {/* Double the list for seamless loop */}
-                    {[...techStack, ...techStack].map((tech, index) => (
+                    {/* Multiple sets for visibility during scroll */}
+                    {[...techStack, ...techStack, ...techStack].map((tech, index) => (
                         <div key={index} className="flex flex-col items-center justify-center mx-12 md:mx-20 group">
-                            <div className="text-white/20 group-hover:text-white/50 transition-colors mb-6">
-                                <tech.icon size={48} />
-                            </div>
-                            <div className="text-center">
-                                <div className="font-['Outfit'] text-[11px] font-bold text-white tracking-[0.2em] uppercase mb-1">{tech.name}</div>
-                                <div className="font-mono text-[8px] text-white/20 group-hover:text-white/40 uppercase tracking-tighter transition-colors">
-                                    {tech.level}
-                                </div>
+                            <div className="text-white/20 group-hover:text-white/50 transition-colors">
+                                <tech.icon size={64} />
                             </div>
                         </div>
                     ))}

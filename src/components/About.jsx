@@ -1,4 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
+import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
+
 import {
     Layers, ShieldCheck, Box, Database, Network, Cpu, Globe, Zap, Server,
     Code2, Terminal, Workflow, Activity, TrendingUp, History, MessageSquare, MonitorCheck,
@@ -97,6 +104,25 @@ const TreeBox = ({ skill, idx }) => (
 );
 
 const About = () => {
+    const containerRef = useRef(null);
+    const headingRef = useRef(null);
+
+    useGSAP(() => {
+        gsap.fromTo(".digital-word",
+            { x: 30 },
+            {
+                x: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: headingRef.current,
+                    start: "top bottom",
+                    end: "top 40%",
+                    scrub: 1,
+                }
+            }
+        );
+    }, { scope: containerRef });
+
     const expertise = [
         { name: "Go Lang", icon: GoIcon, spec: "Concurrency Core" },
         { name: "Clean Arch", icon: Layers, spec: "System Design" },
@@ -116,7 +142,7 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="w-full min-h-screen bg-black text-white relative z-20 overflow-hidden pt-24 pb-32 px-6 md:px-12 lg:px-24">
+        <section id="about" ref={containerRef} className="w-full min-h-screen bg-black text-white relative z-20 overflow-hidden pt-8 pb-32 px-6 md:px-12 lg:px-24">
             <DecorativeGrid />
 
             <style dangerouslySetInnerHTML={{
@@ -139,9 +165,9 @@ const About = () => {
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div className="max-w-4xl">
                             <SectionLabel number="01">Operational Intelligence</SectionLabel>
-                            <h2 className="text-7xl md:text-9xl font-['Outfit'] font-black tracking-tighter leading-[0.8] uppercase">
+                            <h2 ref={headingRef} className="text-7xl md:text-9xl font-['Outfit'] font-black tracking-tighter leading-[0.8] uppercase">
                                 ARCHITECTING <br />
-                                <span className="text-white/20 italic">DIGITAL</span> <br />
+                                <span className="digital-word text-white/20 italic inline-block">DIGITAL</span> <br />
                                 ENTITIES.
                             </h2>
                         </div>
