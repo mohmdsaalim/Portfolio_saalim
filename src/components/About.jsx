@@ -83,21 +83,21 @@ const LightningPath = ({ d, delay = 0, duration = 5, intensity = 1 }) => (
 );
 
 const TreeBox = ({ skill, idx }) => (
-    <div className="relative group overflow-hidden">
-        <div className="w-full h-full bg-white/[0.01] border border-white/5 p-6 flex flex-col items-center justify-center gap-4 group-hover:bg-white/[0.02] group-hover:border-white/10">
-            <div className="text-white/20 group-hover:text-white/60 transform group-hover:scale-110">
+    <div className="relative overflow-hidden">
+        <div className="w-full h-full bg-white/[0.02] border border-white/10 p-6 flex flex-col items-center justify-center gap-4 transition-colors duration-500">
+            <div className="text-white/50">
                 <skill.icon size={24} strokeWidth={1} />
             </div>
             <div className="text-center">
                 <div className="font-mono text-[10px] text-white/80 uppercase tracking-widest mb-1">{skill.name}</div>
-                <div className="font-['Outfit'] text-[8px] text-white/20 uppercase tracking-tighter group-hover:text-white/40 transition-colors">{skill.spec}</div>
+                <div className="font-['Outfit'] text-[8px] text-white/40 uppercase tracking-tighter transition-colors">{skill.spec}</div>
             </div>
 
-            <div className="absolute top-0 right-0 w-8 h-8 opacity-[0.02] group-hover:opacity-[0.05]">
+            <div className="absolute top-0 right-0 w-8 h-8 opacity-[0.03]">
                 <Binary size={32} />
             </div>
         </div>
-        <div className="mt-2 font-mono text-[7px] text-white/10 tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">
+        <div className="mt-2 font-mono text-[7px] text-white/20 tracking-[0.3em] uppercase opacity-80 transition-opacity">
             IDX_0x{idx.toString(16).toUpperCase().padStart(2, '0')}
         </div>
     </div>

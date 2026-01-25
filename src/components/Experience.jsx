@@ -4,7 +4,7 @@ const experiences = [
     {
         id: "ENV_01",
         company: "Bridgeon solutions",
-        role: "Go developer intern",
+        role: "Go Lang developer intern",
         period: "JAN 2025 / PRESENT",
         location: "REMOTE / HYBRID",
         description: "Architecting high-throughput microservices handling 50k+ requests per second. Leading a team of 4 engineers in migrating legacy monoliths to Go-based services. Focus on gRPC communication and observability.",

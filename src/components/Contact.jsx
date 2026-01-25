@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import { Github, Linkedin, Mail, Twitter, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram, ArrowRight } from 'lucide-react';
 
 const SectionLabel = ({ children }) => (
     <div className="flex items-center gap-3 mb-12">
@@ -96,17 +96,17 @@ const Contact = () => {
                             </div>
 
                             <div className="flex gap-12 pt-8">
-                                <a href="#" className="flex items-center gap-2 group">
-                                    <Github size={18} className="text-white/20 group-hover:text-white transition-colors" />
-                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">GitHub</span>
+                                <a href="https://github.com/mohmdsaalim" className="flex items-center gap-2 group">
+                                    <Github size={18} className="text-white/40  transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/40 ">GitHub</span>
+                                </a>
+                                <a href="https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/" className="flex items-center gap-2 group">
+                                    <Linkedin size={18} className="text-white/40  transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">LinkedIn</span>
                                 </a>
                                 <a href="#" className="flex items-center gap-2 group">
-                                    <Linkedin size={18} className="text-white/20 group-hover:text-white transition-colors" />
-                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">LinkedIn</span>
-                                </a>
-                                <a href="#" className="flex items-center gap-2 group">
-                                    <Twitter size={18} className="text-white/20 group-hover:text-white transition-colors" />
-                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white">Twitter</span>
+                                    <Instagram size={18} className="text-white/40  transition-colors" />
+                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/40 ">Instagram</span>
                                 </a>
                             </div>
                         </div>
