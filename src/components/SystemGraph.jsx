@@ -37,7 +37,7 @@ const SystemGraph = ({ className }) => {
         { id: 'queue', label: 'Msg Queue', icon: Workflow, x: '20%', y: '80%', color: 'text-gray-200' }, // Bottom Left
 
         { id: 'cache', label: 'Redis Cache', icon: Layers, x: '80%', y: '20%', color: 'text-gray-400' }, // Top Right
-        { id: 'core', label: 'Go Backend', icon: GoIcon, x: '90%', y: '50%', color: 'text-white' }, // Mid Right
+        { id: 'core', label: 'Go Backend', icon: Server, x: '90%', y: '50%', color: 'text-white' }, // Mid Right
         { id: 'db', label: 'Database', icon: Database, x: '80%', y: '80%', color: 'text-gray-200' }, // Bottom Right
     ];
 
@@ -99,7 +99,16 @@ const SystemGraph = ({ className }) => {
                     }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 1 }}
                 />
-
+                <motion.div
+                    className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)] z-20"
+                    style={{ willChange: 'left, top, opacity' }}
+                    animate={{
+                        left: ['90%', '20%'], // Go Backend -> Msg Queue
+                        top: ['50%', '80%'],
+                        opacity: [0, 1, 0]
+                    }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "linear", delay: 1.5 }}
+                />
                 {/* Background Grid Accent */}
                 <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
                     style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
