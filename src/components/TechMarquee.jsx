@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { SiGithub, SiGo, SiJavascript, SiTypescript, SiDocker, SiReact, SiTailwindcss, SiPostgresql, SiRedis, SiKubernetes } from 'react-icons/si';
+import { SiGithub, SiGo, SiJavascript, SiTypescript, SiDocker, SiReact, SiTailwindcss, SiPostgresql, SiRedis, SiKubernetes, SiGin } from 'react-icons/si';
 
 const techStack = [
     { name: 'Golang', icon: SiGo, level: 'CORE' },
     { name: 'Docker', icon: SiDocker, level: 'EXPERT' },
     { name: 'Postgres', icon: SiPostgresql, level: 'EXPERT' },
     { name: 'Redis', icon: SiRedis, level: 'ADVANCED' },
-    { name: 'Microservices', icon: SiGo, level: 'ADVANCED' },
+    { name: 'Gin', icon: SiGin, level: 'ADVANCED' },
     { name: 'React', icon: SiReact, level: 'INTERMEDIATE' },
     { name: 'TypeScript', icon: SiTypescript, level: 'CORE' },
     { name: 'K8s', icon: SiKubernetes, level: 'RESEARCH' },
@@ -34,7 +34,7 @@ const TechMarquee = () => {
                     {/* Multiple sets for visibility during scroll */}
                     {[...techStack, ...techStack, ...techStack].map((tech, index) => (
                         <div key={index} className="flex flex-col items-center justify-center mx-12 md:mx-20 group">
-                            <div className="text-white/20 group-hover:text-white/50 transition-colors">
+                            <div className="text-white/50 group-hover:text-white/80 transition-colors">
                                 <tech.icon size={64} />
                             </div>
                         </div>

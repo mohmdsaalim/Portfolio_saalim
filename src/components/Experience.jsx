@@ -8,26 +8,26 @@ const experiences = [
         period: "JAN 2025 / PRESENT",
         location: "REMOTE / HYBRID",
         description: "Architecting high-throughput microservices handling 50k+ requests per second. Leading a team of 4 engineers in migrating legacy monoliths to Go-based services. Focus on gRPC communication and observability.",
-        technologies: ["Go", "Docker", "gRPC", "Prometheus"]
+        technologies: ["Go", "Docker", "gRPC", "gin", "postgres"]
     },
-    {
-        id: "ENV_02",
-        company: "Alpha Systems",
-        role: "Backend Research",
-        period: "JUN 2024 / DEC 2024",
-        location: "ONSITE / KOCHI",
-        description: "Developed distributed cache synchronization mechanisms for multi-region deployments. Performance tuning of SQL queries and indexing strategies.",
-        technologies: ["SQL", "Redis", "Kafka", "PostgreSQL"]
-    },
-    {
-        id: "ENV_03",
-        company: "Open Source Collective",
-        role: "Core Contributor",
-        period: "2023 / 2024",
-        location: "GLOBAL",
-        description: "Actively contributed to Go-based networking libraries. Optimized packet parsing logic resulting in 15% reduction in CPU overhead.",
-        technologies: ["Golang", "Wasm", "Protobuf"]
-    }
+    // {
+    //     id: "ENV_02",
+    //     company: "Alpha Systems",
+    //     role: "Backend Research",
+    //     period: "JUN 2024 / DEC 2024",
+    //     location: "ONSITE / KOCHI",
+    //     description: "Developed distributed cache synchronization mechanisms for multi-region deployments. Performance tuning of SQL queries and indexing strategies.",
+    //     technologies: ["SQL", "Redis", "Kafka", "PostgreSQL"]
+    // },
+    // {
+    //     id: "ENV_03",
+    //     company: "Open Source Collective",
+    //     role: "Core Contributor",
+    //     period: "2023 / 2024",
+    //     location: "GLOBAL",
+    //     description: "Actively contributed to Go-based networking libraries. Optimized packet parsing logic resulting in 15% reduction in CPU overhead.",
+    //     technologies: ["Golang", "Wasm", "Protobuf"]
+    // }
 ];
 
 const SectionLabel = ({ children }) => (

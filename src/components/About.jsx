@@ -109,14 +109,14 @@ const About = () => {
 
     useGSAP(() => {
         gsap.fromTo(".digital-word",
-            { x: 30 },
+            { x: 100 },
             {
                 x: 0,
                 ease: "none",
                 scrollTrigger: {
                     trigger: headingRef.current,
                     start: "top bottom",
-                    end: "top 40%",
+                    end: "bottom top",
                     scrub: 1,
                 }
             }
