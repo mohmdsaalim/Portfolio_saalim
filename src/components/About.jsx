@@ -112,12 +112,12 @@ const About = () => {
             { x: 100 },
             {
                 x: 0,
-                // ease: "none",
+                ease: "none",
                 scrollTrigger: {
                     trigger: headingRef.current,
                     start: "top bottom",
                     end: "bottom top",
-                    scrub: 1,
+                    scrub: true,
                 }
             }
         );

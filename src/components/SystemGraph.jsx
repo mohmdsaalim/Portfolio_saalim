@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Server, Database, Shield, Globe, Cpu, Layers, Workflow } from 'lucide-react';
 import { cn } from '../utils/cn';
+import { SiGo } from "react-icons/si";
 
 // Custom Go Lang Icon
 const GoIcon = ({ size = 24, className }) => (
@@ -37,7 +38,7 @@ const SystemGraph = ({ className }) => {
         { id: 'queue', label: 'Msg Queue', icon: Workflow, x: '20%', y: '80%', color: 'text-gray-200' }, // Bottom Left
 
         { id: 'cache', label: 'Redis Cache', icon: Layers, x: '80%', y: '20%', color: 'text-gray-400' }, // Top Right
-        { id: 'core', label: 'Go Backend', icon: Server, x: '90%', y: '50%', color: 'text-white' }, // Mid Right
+        { id: 'core', label: 'Go Backend', icon: SiGo, x: '90%', y: '50%', color: 'text-white' }, // Mid Right
         { id: 'db', label: 'Database', icon: Database, x: '80%', y: '80%', color: 'text-gray-200' }, // Bottom Right
     ];
 
