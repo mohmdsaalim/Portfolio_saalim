@@ -24,9 +24,9 @@ const TechMarquee = () => {
     const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
     return (
-        <div ref={containerRef} className="w-full bg-black py-4 relative z-30 overflow-hidden">
+        <div ref={containerRef} className="w-full bg-black relative z-30 overflow-hidden">
             {/* Smooth Scroll-bound Marquee */}
-            <div className="relative flex overflow-hidden border-y border-white/5 py-6">
+            <div className="relative flex overflow-hidden border-y border-white/5 py-8">
                 <motion.div
                     className="flex whitespace-nowrap"
                     style={{ x, willChange: 'transform' }}

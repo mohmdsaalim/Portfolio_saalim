@@ -1,358 +1,279 @@
-import React, { useMemo, useRef } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(ScrollTrigger);
-
+import React from 'react';
 import {
-    Layers, ShieldCheck, Box, Database, Network, Cpu, Globe, Zap, Server,
-    Code2, Terminal, Workflow, Activity, TrendingUp, History, MessageSquare, MonitorCheck,
-    Lock, Share2, Fan, HardDrive, Binary, Fingerprint
+    Terminal, Cpu, Shield, Globe, Layers, Zap,
+    Database, Network, Infinity, Code, Binary,
+    Microchip, Fingerprint, Activity, Workflow,
+    Crosshair, Hash, Square, Package, Settings
 } from 'lucide-react';
 import aboutImage from '../assets/about-me.JPEG';
 
-const GoIcon = ({ size = 20, className }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="M4.5 14c-.2-.5-.5-2.6.4-4.5a3.9 3.9 0 0 1 6.3-1.4" />
-        <path d="M4.5 14h5v-3h-2" />
-        <path d="M19.5 14c.2-.5.5-2.6-.4-4.5a3.9 3.9 0 0 0-6.3-1.4" />
-        <path d="M19.5 14h-5v-3h2" />
-    </svg>
+const MicroDetail = ({ text, className = "" }) => (
+    <span className={`font-mono text-[6px] tracking-[0.3em] text-white/10 uppercase select-none ${className}`}>
+        {text}
+    </span>
 );
 
-const DecorativeGrid = () => (
-    <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', size: '40px 40px', backgroundSize: '40px 40px' }} />
-);
+const CornerBracket = ({ position = "tl" }) => {
+    const classes = {
+        tl: "top-0 left-0 border-t border-l",
+        tr: "top-0 right-0 border-t border-r",
+        bl: "bottom-0 left-0 border-b border-l",
+        br: "bottom-0 right-0 border-b border-r"
+    };
+    return <div className={`absolute w-1.5 h-1.5 border-white/30 ${classes[position]}`} />;
+};
 
-const SectionLabel = ({ children, number }) => (
-    <div className="flex items-center gap-4 mb-6">
-        <span className="font-mono text-[10px] text-white/40 flex items-center gap-2">
-            <span className="text-white/20">[{number}]</span>
-            <span className="uppercase tracking-[0.3em]">{children}</span>
-        </span>
-        <div className="h-[1px] flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+const TechLine = () => (
+    <div className="h-[1px] w-full bg-white/5 relative">
+        <div className="absolute left-0 top-0 h-full w-4 bg-blue-500/40" />
+        <div className="absolute right-0 top-0 h-full w-12 bg-white/10" />
     </div>
 );
 
-const TechMetric = ({ label, value, unit, icon: Icon }) => (
-    <div className="group relative flex flex-col border border-white/5 bg-white/[0.01] p-6 hover:bg-white/[0.02] hover:border-white/10">
-        <div className="absolute top-2 right-2 opacity-10 group-hover:opacity-20">
-            {Icon && <Icon size={12} />}
+const MetricBlock = ({ label, value, sub, id }) => (
+    <div className="border-r border-white/10 bg-white/[0.01] p-8 flex flex-col justify-between aspect-square relative group">
+        <div className="flex justify-between items-start">
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">{label}</span>
+            <MicroDetail text={`ID:0X${id}`} />
         </div>
-        <span className="font-mono text-[9px] uppercase tracking-widest text-white/30 mb-2">{label}</span>
-        <div className="flex items-baseline gap-1">
-            <span className="font-['Outfit'] text-2xl font-light text-white/90 group-hover:text-white">{value}</span>
-            {unit && <span className="font-mono text-[10px] text-white/20">{unit}</span>}
+        <div>
+            <div className="text-5xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
+            <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-blue-500/60 mt-3 flex items-center gap-2">
+                <div className="w-1 h-1 bg-blue-500/20" /> {sub}
+            </div>
         </div>
-        <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-white/20 group-hover:w-full" />
+        <div className="absolute bottom-2 right-2 flex gap-1">
+            <div className="w-1 h-1 bg-white/5" />
+            <div className="w-1 h-1 bg-white/10" />
+        </div>
     </div>
 );
 
-const LightningPath = ({ d, delay = 0, duration = 5, intensity = 1 }) => (
-    <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-        <path d={d} fill="none" stroke="white" strokeWidth="0.5" className="opacity-[0.01]" />
-        <path
-            d={d}
-            fill="none"
-            stroke="white"
-            strokeWidth={0.8 * intensity}
-            className="opacity-0 animate-[lightning_6s_ease-in-out_infinite]"
-            style={{
-                strokeDasharray: '80, 500',
-                filter: 'drop-shadow(0 0 2px white)',
-                animationDelay: `${delay}s`,
-                animationDuration: `${duration}s`,
-                willChange: 'opacity, stroke-dashoffset'
-            }}
-        />
-    </svg>
-);
-
-const TreeBox = ({ skill, idx }) => (
-    <div className="relative overflow-hidden">
-        <div className="w-full h-full bg-white/[0.02] border border-white/10 p-6 flex flex-col items-center justify-center gap-4 transition-colors duration-500">
-            <div className="text-white/50">
-                <skill.icon size={24} strokeWidth={1} />
+const SkillModule = ({ icon: Icon, title, desc, index }) => (
+    <div className="border-r border-white/5 p-6 flex flex-col justify-between min-h-[160px] relative">
+        <div className="flex items-start justify-between">
+            <div className="p-2.5 bg-white/5 border border-white/10">
+                <Icon size={16} className="text-white/40" />
             </div>
-            <div className="text-center">
-                <div className="font-mono text-[10px] text-white/80 uppercase tracking-widest mb-1">{skill.name}</div>
-                <div className="font-['Outfit'] text-[8px] text-white/40 uppercase tracking-tighter transition-colors">{skill.spec}</div>
-            </div>
-
-            <div className="absolute top-0 right-0 w-8 h-8 opacity-[0.03]">
-                <Binary size={32} />
-            </div>
+            <MicroDetail text={`MOD_0${index}`} />
         </div>
-        <div className="mt-2 font-mono text-[7px] text-white/20 tracking-[0.3em] uppercase opacity-80 transition-opacity">
-            IDX_0x{idx.toString(16).toUpperCase().padStart(2, '0')}
+        <div>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/80 mb-2">{title}</h4>
+            <p className="font-['Outfit'] text-[9px] text-white/20 uppercase leading-relaxed tracking-wider">{desc}</p>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/[0.02]" />
     </div>
 );
 
 const About = () => {
-    const containerRef = useRef(null);
-    const headingRef = useRef(null);
-
-    useGSAP(() => {
-        gsap.fromTo(".digital-word",
-            { x: 100 },
-            {
-                x: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: headingRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true,
-                }
-            }
-        );
-    }, { scope: containerRef });
-
-    const expertise = [
-        { name: "Go Lang", icon: GoIcon, spec: "Concurrency Core" },
-        { name: "Clean Arch", icon: Layers, spec: "System Design" },
-        { name: "gRPC/Micro", icon: Network, spec: "Distributed Logic" },
-        { name: "Cloud Native", icon: Server, spec: "Orchestration" },
-        { name: "Core Security", icon: ShieldCheck, spec: "Auth Systems" },
-        { name: "Data Persistence", icon: Database, spec: "Storage Logic" },
-        { name: "Message Queues", icon: MessageSquare, spec: "Async Streams" },
-        { name: "Scalability", icon: TrendingUp, spec: "High Availability" },
-        { name: "Observability", icon: Activity, spec: "Tracing & Metrics" },
-        { name: "DevOps/Infra", icon: Box, spec: "CI/CD Pipeline" },
-        { name: "Protocols", icon: Terminal, spec: "Interface Contract" },
-        { name: "Performance", icon: Code2, spec: "Low-Level Tuning" },
-        { name: "System Flows", icon: Workflow, spec: "State Control" },
-        { name: "Event Sourcing", icon: History, spec: "Log Integrity" },
-        { name: "Stability", icon: MonitorCheck, spec: "Fault Tolerance" }
+    const skills = [
+        { icon: Cpu, title: "Concurrency Native", desc: "Advanced Go channel patterns and goroutine management for parallel execution." },
+        { icon: Layers, title: "Clean Architecture", desc: "Layered domain-driven design ensuring modularity and enterprise-grade maintainability." },
+        { icon: Network, title: "Orchestration", desc: "High-scale gRPC microservices with service mesh and automated service discovery." },
+        { icon: Database, title: "Memory Engine", desc: "Low-level heap optimization, garbage collection tuning, and lock-free structures." },
+        { icon: Shield, title: "System Security", desc: "Zero-trust architecture, HSM-backed identity, and end-to-end encrypted tunnels." },
+        { icon: Workflow, title: "Event Logs", desc: "Distributed event-sourcing with strict ACID compliance and log-tailing observability." }
     ];
 
     return (
-        <section id="about" ref={containerRef} className="w-full min-h-screen bg-black text-white relative z-20 overflow-hidden pt-8 pb-32 px-6 md:px-12 lg:px-24">
-            <DecorativeGrid />
+        <section id="about" className="min-h-screen bg-black text-white pt-12 pb-16 px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center relative overflow-hidden">
 
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                @keyframes lightning {
-                    0%, 100% { opacity: 0; stroke-dashoffset: 600; }
-                    10%, 25% { opacity: 0.7; stroke-dashoffset: 500; }
-                    15% { opacity: 0.2; }
-                    20% { opacity: 0.8; stroke-dashoffset: 450; }
-                    35%, 95% { opacity: 0; stroke-dashoffset: -600; }
-                }
-                .text-glitch:hover {
-                    text-shadow: 2px 0 #ff00c1, -2px 0 #00fff9;
-                }
-            `}} />
+            {/* Background Architecture - Micro Grid */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                    backgroundSize: '30px 30px'
+                }}
+            />
 
-            <div className="max-w-[1400px] mx-auto relative">
-                {/* Header Section */}
-                <div className="mb-32">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                        <div className="max-w-4xl">
-                            <SectionLabel number="01">Operational Intelligence</SectionLabel>
-                            <h2 ref={headingRef} className="text-7xl md:text-9xl font-['Outfit'] font-black tracking-tighter leading-[0.8] uppercase">
-                                ARCHITECTING <br />
-                                <span className="digital-word text-white/20 italic inline-block">DIGITAL</span> <br />
-                                ENTITIES.
-                            </h2>
+            <div className="max-w-[1440px] w-full relative z-10">
+
+                {/* System Path Header */}
+                <div className="flex items-center justify-between mb-4 px-1">
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <Crosshair size={10} className="text-blue-500/50" />
+                            <MicroDetail text="ROOT / ARCHITECT / IDENTITY.BIN" />
                         </div>
-                        <div className="hidden lg:block">
-                            <div className="border-l border-white/10 pl-8 py-2 space-y-2">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
-                                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/60">System Core: Stable</span>
-                                </div>
-                                <p className="font-mono text-[9px] text-white/30 uppercase max-w-[200px] leading-relaxed">
-                                    Sub-millisecond latency objectives achieved through distributed cache layers.
-                                </p>
-                            </div>
+                        <div className="h-[1px] w-12 bg-white/10" />
+                        <MicroDetail text="BUILD_STABLE_V6.0.4" />
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <div className="flex gap-1">
+                            {[1, 2, 3].map(i => <div key={i} className="w-1.5 h-1.5 bg-white/5 border border-white/10" />)}
                         </div>
+                        <MicroDetail text="SEC_ENCRYPTED" className="text-green-500/40" />
                     </div>
                 </div>
 
-                {/* Main Identity Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-48">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-white/10 bg-[#050505] relative shadow-[0_0_100px_rgba(0,0,0,1)]">
 
-                    {/* Column 1: Portrait & Metadata */}
-                    <div className="lg:col-span-4 space-y-8">
-                        <div className="relative group">
-                            {/* Technical Frame */}
-                            <div className="absolute -inset-4 border border-white/5 pointer-events-none group-hover:border-white/10 transition-colors duration-700" />
-                            <div className="absolute -top-4 -left-4 w-8 h-8 border-t border-l border-white/40 z-10" />
-                            <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b border-r border-white/40 z-10" />
+                    {/* Visual DNA Block (4/12) */}
+                    <div className="lg:col-span-4 border-r border-white/10 p-8 flex flex-col justify-between bg-white/[0.01] relative">
+                        <CornerBracket position="tl" />
+                        <CornerBracket position="tr" />
 
-                            {/* Portrait Image */}
-                            <div className="aspect-[3/4] overflow-hidden bg-white/5 grayscale relative">
-                                <img src={aboutImage} alt="Engineering Identity" className="w-full h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-
-                                {/* Image Overlays */}
-                                <div className="absolute bottom-6 left-6 right-6">
-                                    <div className="font-mono text-[8px] text-white/40 uppercase tracking-[0.4em] mb-1">Authorization Validated</div>
-                                    <div className="h-[2px] w-full bg-white/10 overflow-hidden">
-                                        <div className="h-full bg-white/60 w-2/3 animate-[shimmer_2s_infinite]"
-                                            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)', backgroundSize: '100px 100%' }} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Bio Quick Metrics */}
-                            <div className="grid grid-cols-3 gap-1 mt-6">
-                                {[
-                                    { label: 'VER', val: '2.0.4', icon: HardDrive },
-                                    { label: 'SEC', val: 'L3_ENC', icon: Lock },
-                                    { label: 'DIST', val: 'GLOBAL', icon: Globe }
-                                ].map((m, i) => (
-                                    <div key={i} className="bg-white/[0.03] border border-white/5 p-3 flex flex-col gap-1">
-                                        <m.icon size={10} className="text-white/20" />
-                                        <span className="font-mono text-[7px] text-white/30 uppercase">{m.label}</span>
-                                        <span className="font-mono text-[9px] text-white/80">{m.val}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Column 2: Narrative & Philosophy */}
-                    <div className="lg:col-span-4 flex flex-col gap-12">
                         <div>
-                            <SectionLabel number="02">Biography</SectionLabel>
-                            <p className="text-2xl md:text-3xl font-['Outfit'] font-light text-white/90 leading-[1.15] mb-8">
-                                Refined systems architect building low-latency bridges between <span className="text-white italic">complex logic</span> and <span className="text-white italic">human interaction.</span>
-                            </p>
-                            <div className="space-y-6 text-white/40 font-['Outfit'] font-light text-base leading-relaxed">
-                                <p>
-                                    Specializing in high-performance backend infrastructure with the Go ecosystem, I transform architectural visions into resilient, scalable realities.
-                                </p>
-                                <p>
-                                    My approach is rooted in clean architecture, rigorous observability, and the relentless pursuit of absolute system stability.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="pt-8 border-t border-white/5">
-                            <div className="flex items-start gap-4 group">
-                                <div className="p-3 bg-white/5 border border-white/10 group-hover:border-white/30 transition-colors">
-                                    <Fingerprint size={24} className="text-white/40 group-hover:text-white/80" />
+                            <div className="flex items-center gap-3 mb-12">
+                                <div className="p-1 bg-blue-500/10 border border-blue-500/20">
+                                    <Fingerprint size={16} className="text-blue-500" />
                                 </div>
                                 <div>
-                                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/60 mb-1">Architecture Philosophy</h4>
-                                    <p className="font-mono text-[9px] text-white/20 uppercase max-w-[240px]">
-                                        Code is a liability; maintenance is the reality. Build for the engineer who comes after you.
+                                    <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/50 block">Auth_Validated</span>
+                                    <div className="h-[1px] w-16 bg-blue-500/30 mt-1" />
+                                </div>
+                            </div>
+
+                            <div className="aspect-[4/5] bg-black relative mb-8 overflow-hidden grayscale">
+                                <img src={aboutImage} alt="Identity" className="w-full h-full object-cover opacity-60 mix-blend-screen" />
+
+                                {/* Geometric Overlays */}
+                                <div className="absolute inset-x-8 top-8 border-t border-white/10" />
+                                <div className="absolute inset-x-8 bottom-8 border-b border-white/10" />
+                                <div className="absolute inset-y-8 left-8 border-l border-white/10" />
+                                <div className="absolute inset-y-8 right-8 border-r border-white/10" />
+
+                                <div className="absolute top-10 left-10 flex flex-col gap-1">
+                                    <div className="w-4 h-[1px] bg-blue-500/40" />
+                                    <div className="w-2 h-[1px] bg-blue-500/20" />
+                                </div>
+
+                                <div className="absolute bottom-12 right-12">
+                                    <div className="font-mono text-[14px] text-white/80 font-black italic">SAALIM_01</div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white/5 p-4 border border-white/10">
+                                <div className="flex justify-between items-center mb-3">
+                                    <MicroDetail text="SYS_ALLOCATION" />
+                                    <MicroDetail text="88%" className="text-white/40" />
+                                </div>
+                                <div className="h-[2px] w-full bg-white/5">
+                                    <div className="h-full bg-white/20 w-[88%]" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 pt-8 border-t border-white/5 space-y-3">
+                            {[
+                                { k: "Kernel", v: "GO_UNIX_LITE" },
+                                { k: "Interface", v: "GRPC_STABLE" },
+                                { k: "Location", v: "0x88.42.01" }
+                            ].map((item, i) => (
+                                <div key={i} className="flex justify-between font-mono text-[8px] uppercase tracking-[0.3em]">
+                                    <span className="text-white/20">{item.k}</span>
+                                    <span className="text-white/50">{item.v}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Central Processing & Philosophy (5/12) */}
+                    <div className="lg:col-span-8 grid grid-cols-1 lg:grid-cols-8">
+
+                        {/* Narrative Column (5/8 of the 8 cols) */}
+                        <div className="lg:col-span-5 p-12 lg:p-14 border-r border-white/10 relative">
+                            <CornerBracket position="tr" />
+                            <div className="max-w-md">
+                                <div className="mb-16">
+                                    <div className="flex items-center gap-2 mb-6">
+                                        <Hash size={10} className="text-white/20" />
+                                        <MicroDetail text="OBJECTIVE_CORE" />
+                                    </div>
+                                    <h2 className="text-7xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.85] mb-8">
+                                        Pure <br />
+                                        <span className="text-transparent border-text text-white/10" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>Logic</span>
+                                    </h2>
+                                    <p className="text-lg font-['Outfit'] font-light text-white/60 leading-relaxed mb-6 italic border-l border-blue-500/30 pl-6">
+                                        "Defining the future of high-performance backends through architectural minimalism."
                                     </p>
+                                </div>
+
+                                <div className="space-y-12">
+                                    <div className="relative">
+                                        <div className="absolute -left-6 top-1 text-white/10 font-mono text-[8px]">01</div>
+                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 mb-4 flex items-center gap-2">
+                                            <Terminal size={12} className="text-blue-500/40" /> Systems_Narrative
+                                        </h3>
+                                        <p className="text-[13px] text-white/40 leading-relaxed font-light tracking-wide">
+                                            Engineer specialized in building self-healing distributed systems. I operate at the intersection of OS-level optimization and distributed consensus, ensuring that services remain performant under extreme load.
+                                        </p>
+                                    </div>
+
+                                    <div className="relative">
+                                        <div className="absolute -left-6 top-1 text-white/10 font-mono text-[8px]">02</div>
+                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 mb-4 flex items-center gap-2">
+                                            <Activity size={12} className="text-blue-500/40" /> Engineering_Philosophy
+                                        </h3>
+                                        <p className="text-[13px] text-white/40 leading-relaxed font-light tracking-wide">
+                                            My primary thesis is that scalability is a byproduct of simplicity. I eliminate architectural waste and focus on building low-level primitives that empower developers to scale without complexity.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="mt-16 flex items-center gap-12">
+                                    <div className="space-y-1">
+                                        <MicroDetail text="EXPERIENCE" />
+                                        <div className="font-['Outfit'] text-xl text-white font-medium uppercase tracking-tighter">Senior_Architect</div>
+                                    </div>
+                                    <div className="w-[1px] h-8 bg-white/10" />
+                                    <div className="space-y-1">
+                                        <MicroDetail text="CORE_DOMAIN" />
+                                        <div className="font-['Outfit'] text-xl text-white font-medium uppercase tracking-tighter">Distributed_Go</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Telemetry Column (3/8 of the 8 cols) */}
+                        <div className="lg:col-span-3 flex flex-col relative">
+                            <div className="border-b border-white/10 flex-1">
+                                <MetricBlock label="Throughput" value="150K+" sub="R_P_S / PEAK" id="A81" />
+                            </div>
+                            <div className="border-b border-white/10 flex-1">
+                                <MetricBlock label="Lat. Range" value="< 6ms" sub="P99_DISTRIBUTED" id="B12" />
+                            </div>
+                            <div className="flex-1 p-8 bg-blue-500/[0.02] flex flex-col justify-end gap-6 relative">
+                                <div className="absolute top-4 left-4">
+                                    <Settings size={12} className="text-white/5 outline-white/5" />
+                                </div>
+                                <div className="space-y-3">
+                                    <div className="flex gap-1 justify-end">
+                                        {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="w-1 h-3 bg-white/5" />)}
+                                    </div>
+                                    <div className="font-mono text-[8.5px] text-white/30 leading-tight uppercase tracking-widest text-right">
+                                        HEARTBEAT_STABLE <br />
+                                        NODE_SYNCHRONIZED <br />
+                                        TELEMETRY_ONLINE
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {/* Column 3: Telemetry Grid */}
-                    <div className="lg:col-span-4 flex flex-col gap-12">
-                        <div>
-                            <SectionLabel number="03">Telemetry</SectionLabel>
-                            <div className="grid grid-cols-2 gap-4">
-                                <TechMetric label="Throughput" value="100k+" unit="req/s" icon={Zap} />
-                                <TechMetric label="Precision" value="Nano" unit="sec" icon={Activity} />
-                                <TechMetric label="Availability" value="99.9" unit="%" icon={ShieldCheck} />
-                                <TechMetric label="Scale_Factor" value="X_10" icon={TrendingUp} />
-                            </div>
+                {/* Technical Stack Modules (12/12) */}
+                <div className="border-x border-b border-white/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 bg-[#080808]">
+                    {skills.map((skill, i) => (
+                        <div key={i} className={i === skills.length - 1 ? "" : "border-r border-white/10"}>
+                            <SkillModule {...skill} index={i + 1} />
                         </div>
+                    ))}
+                </div>
 
-                        <div className="bg-white/[0.02] border border-white/5 p-6 space-y-6 relative overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%]" />
-                            <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/40">Real-time Processing</h4>
-                            <div className="space-y-4">
-                                {[
-                                    { label: 'Concurrency_Handling', pc: '94%' },
-                                    { label: 'Memory_Optimization', pc: '88%' },
-                                    { label: 'Network_Saturation', pc: '42%' }
-                                ].map((bar, i) => (
-                                    <div key={i} className="space-y-1.5">
-                                        <div className="flex justify-between font-mono text-[8px] uppercase tracking-tighter">
-                                            <span className="text-white/30">{bar.label}</span>
-                                            <span className="text-white/60">{bar.pc}</span>
-                                        </div>
-                                        <div className="h-[1px] w-full bg-white/5 overflow-hidden">
-                                            <div className="h-full bg-white/40 group-hover:bg-white/80" style={{ width: bar.pc }} />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                {/* Footer Micro-Information */}
+                <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 items-center gap-8 px-2">
+                    <div className="flex items-center gap-4">
+                        <MicroDetail text="SYSTEM_STATUS: NOMINAL" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500/40" />
                     </div>
-                </div>
-
-                {/* Infrastructure Grid */}
-                <div className="relative">
-                    <SectionLabel number="04">Stack Architecture</SectionLabel>
-
-                    <div className="relative space-y-24 mt-16">
-                        {/* Layer 1 */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 relative z-10">
-                            {expertise.slice(0, 5).map((skill, i) => (
-                                <TreeBox key={i} skill={skill} idx={i} />
-                            ))}
-                            <LightningPath d="M 50 60 H 1350" delay={0.5} duration={7} />
-                        </div>
-
-                        {/* Bridge */}
-                        <div className="flex justify-center h-24 -my-24 relative z-0">
-                            <LightningPath d="M 700 -10 V 100" delay={1.5} duration={5} />
-                        </div>
-
-                        {/* Layer 2 */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative z-10">
-                            {expertise.slice(5, 11).map((skill, i) => (
-                                <TreeBox key={i + 5} skill={skill} idx={i + 5} />
-                            ))}
-                            <LightningPath d="M 50 60 H 1350" delay={2.0} duration={8} intensity={0.5} />
-                        </div>
-
-                        {/* Bridge */}
-                        <div className="flex justify-center h-24 -my-24 relative z-0">
-                            <LightningPath d="M 700 -10 V 100" delay={3.5} duration={6} />
-                        </div>
-
-                        {/* Layer 3 */}
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-[1000px] mx-auto relative z-10">
-                            {expertise.slice(11, 15).map((skill, i) => (
-                                <TreeBox key={i + 11} skill={skill} idx={i + 11} />
-                            ))}
-                        </div>
+                    <div className="flex justify-center italic text-white/5 font-mono text-[7px] uppercase tracking-[1em]">
+                        PREDICTING_FAILURE_SINCE_2018
                     </div>
-                </div>
-            </div>
-
-            {/* Aesthetic Side Labels */}
-            <div className="absolute top-1/2 left-8 -translate-y-1/2 hidden xl:flex flex-col gap-32">
-                <div className="rotate-90 origin-left font-mono text-[9px] text-white/10 uppercase tracking-[1em] whitespace-nowrap">
-                    System_Evolution_Protocol_v4.2.0
-                </div>
-                <div className="rotate-90 origin-left font-mono text-[9px] text-white/10 uppercase tracking-[1em] whitespace-nowrap">
-                    Neural_Network_Topology: Synapsed
-                </div>
-            </div>
-
-            {/* Floating Data Points */}
-            <div className="absolute top-40 right-10 opacity-10 animate-pulse pointer-events-none">
-                <div className="font-mono text-[8px] text-white space-y-1">
-                    <div>X: 142.12</div>
-                    <div>Y: 882.04</div>
-                    <div>Z: 001.92</div>
+                    <div className="flex justify-end gap-6">
+                        <MicroDetail text="ENCODING: UTF-8" />
+                        <MicroDetail text="ENCRYPTION: AES_256" />
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,222 +1,220 @@
-import React, { useRef } from 'react';
-import { ExternalLink, Github, ArrowUpRight, Code2, Database, Share2 } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import React, { useState } from 'react';
+import {
+    Github, ArrowUpRight, Layers, Globe, Terminal,
+    Hash, Crosshair, Box, Settings, Cpu, Activity,
+    Database, Network, Shield, Workflow, Fingerprint
+} from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+const MicroDetail = ({ text, className = "" }) => (
+    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/10 uppercase select-none ${className}`}>
+        {text}
+    </span>
+);
+
+const CornerBracket = ({ position = "tl" }) => {
+    const classes = {
+        tl: "top-0 left-0 border-t border-l",
+        tr: "top-0 right-0 border-t border-r",
+        bl: "bottom-0 left-0 border-b border-l",
+        br: "bottom-0 right-0 border-b border-r"
+    };
+    return <div className={`absolute w-1 h-1 border-white/20 ${classes[position]}`} />;
+};
+
+const ProjectMetric = ({ label, value, sub, id }) => (
+    <div className="border-r border-white/10 bg-white/[0.01] p-5 flex flex-col justify-between h-26 relative">
+        <div className="flex justify-between items-start">
+            <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/20">{label}</span>
+            <MicroDetail text={`0x${id}`} />
+        </div>
+        <div>
+            <div className="text-2xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
+            <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/40 mt-1">{sub}</div>
+        </div>
+    </div>
+);
 
 const projects = [
     {
         id: "01",
         title: "E-Commerce Microservices",
         category: "Cloud Architecture",
-        description: "High-concurrency e-commerce core handling 50k+ req/sec. Built with Go, gRPC, and PostgreSQL.",
+        description: "High-concurrency core system handling 50k+ req/sec. Implemented with Go/gRPC for performance, with a robust PostgreSQL layer.",
         tech: ["Go", "gRPC", "Postgres", "Redis"],
         github: "#",
+        live: "#",
         year: "2025",
-        stats: { perf: "50k req/s", uptime: "99.99%" }
+        metrics: [{ label: "Throughput", value: "50k/s" }, { label: "Latency", value: "<15ms" }, { label: "Stability", value: "99.9%" }],
+        features: ["Tracing", "Auto-scaling", "Caching"],
+        sysId: "X81_CORE"
     },
     {
         id: "02",
         title: "Distributed Scheduler",
         category: "Infrastructure",
-        description: "A fault-tolerant task orchestration engine with millisecond precision and zero-downtime deployments.",
+        description: "Fault-tolerant orchestration engine for large-scale workloads. Built with K8s-native integration and Kafka event streaming.",
         tech: ["Go", "Kafka", "K8s", "Docker"],
         github: "#",
+        live: "#",
         year: "2024",
-        stats: { perf: "<1ms Latency", uptime: "Zero DT" }
+        metrics: [{ label: "Precision", value: "1ms" }, { label: "Payloads", value: "1.2M" }, { label: "Deploy", value: "Zero-DT" }],
+        features: ["Tolerance", "Streaming", "Leveling"],
+        sysId: "Y12_SCHED"
     },
     {
         id: "03",
         title: "Fintech Core Engine",
         category: "Backend Systems",
-        description: "Double-entry bookkeeping system with transaction isolation levels and multi-currency support.",
-        tech: ["Go", "Event-Sourcing", "CockroachDB"],
+        description: "Double-entry bookkeeping with ACID compliance. Integrated multi-currency and event-sourcing for traceability.",
+        tech: ["Go", "Event", "Cockroach", "Rabbit"],
         github: "#",
+        live: "#",
         year: "2024",
-        stats: { perf: "ACID Compliant", uptime: "100%" }
+        metrics: [{ label: "Compliance", value: "ACID" }, { label: "Scalability", value: "Horiz" }, { label: "Audit", value: "Real" }],
+        features: ["Ledger", "Isolation", "Currency"],
+        sysId: "Z04_FIN"
     },
     {
         id: "04",
-        title: "Auth & Identity Provider",
-        category: "Security",
-        description: "A custom OAuth2/OIDC provider with RBAC, hardware security modules, and biometric integration.",
-        tech: ["Vault", "JWT", "Golang", "LDAP"],
+        title: "Identity Provider",
+        category: "Security Service",
+        description: "Custom OAuth2/OIDC provider for enterprise security. Features include RBAC and biometric authentication hooks.",
+        tech: ["Vault", "JWT", "Go", "OAuth2"],
         github: "#",
+        live: "#",
         year: "2023",
-        stats: { perf: "OIDC/OAuth2", uptime: "Secure" }
+        metrics: [{ label: "Security", value: "HSM" }, { label: "Standard", value: "OIDC" }, { label: "Isolation", value: "Sandbox" }],
+        features: ["RBAC", "Biometrics", "HSM"],
+        sysId: "W99_AUTH"
     }
 ];
 
-const ProjectCard = ({ project, index, total }) => {
-    return (
-        <div className="project-card absolute top-0 w-full h-full flex flex-col justify-center items-center p-4 md:p-8"
-            style={{ zIndex: index + 1 }}>
-
-            <div className="w-full max-w-[1000px] bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden relative shadow-2xl">
-                {/* Card decorative header */}
-                <div className="h-8 md:h-12 bg-white/[0.03] border-b border-white/5 flex items-center justify-between px-4 md:px-6">
-                    <div className="flex gap-2">
-                        <div className="w-2 h-2 rounded-full bg-red-500/20 md:bg-red-500/50" />
-                        <div className="w-2 h-2 rounded-full bg-yellow-500/20 md:bg-yellow-500/50" />
-                        <div className="w-2 h-2 rounded-full bg-green-500/20 md:bg-green-500/50" />
-                    </div>
-                    <div className="font-mono text-[9px] md:text-[10px] text-white/30 uppercase tracking-widest flex items-center gap-2">
-                        <span className="hidden sm:inline">Project_Hash:</span> 0x{project.id}_{project.year}
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 md:max-h-[60vh] overflow-y-auto lg:overflow-visible">
-                    {/* Left Content */}
-                    <div className="lg:col-span-7 p-6 md:p-10 md:py-16 flex flex-col justify-between min-h-[400px] border-b lg:border-b-0 lg:border-r border-white/5 relative">
-                        <div className="absolute top-0 left-0 w-[1px] h-20 bg-gradient-to-b from-white/20 to-transparent" />
-
-                        <div className="space-y-6 md:space-y-8">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.03] border border-white/10 rounded-full w-fit">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500/80 animate-pulse" />
-                                <span className="font-mono text-[10px] text-white/60 uppercase tracking-wider">{project.category}</span>
-                            </div>
-
-                            <h3 className="text-4xl md:text-5xl lg:text-7xl font-['Outfit'] font-black text-white leading-[0.85] tracking-tighter uppercase relative z-10">
-                                {project.title}
-                            </h3>
-
-                            <p className="text-white/50 text-base md:text-lg font-light leading-relaxed max-w-md">
-                                {project.description}
-                            </p>
-
-                            <div className="flex flex-wrap gap-2 md:gap-3">
-                                {project.tech.map((t, i) => (
-                                    <span key={i} className="px-3 py-1.5 bg-white/[0.02] border border-white/10 text-white/40 font-mono text-xs uppercase tracking-wider hover:bg-white/5 transition-colors cursor-default">
-                                        {t}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-6 mt-12">
-                            <a href={project.github} className="group relative px-6 py-3 bg-white text-black font-['Outfit'] font-bold uppercase tracking-widest text-xs overflow-hidden">
-                                <span className="relative z-10 flex items-center gap-2 group-hover:gap-4 transition-all duration-300">
-                                    View Source <Github size={14} />
-                                </span>
-                                <div className="absolute inset-0 bg-white group-hover:bg-gray-200 transition-colors" />
-                            </a>
-                        </div>
-                    </div>
-
-                    {/* Right Stats/Visuals */}
-                    <div className="lg:col-span-5 p-6 md:p-10 bg-white/[0.01] relative flex flex-col justify-center">
-                        <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 opacity-[0.05]"
-                            style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-
-                        <div className="relative z-10 space-y-12">
-                            <div className="space-y-4">
-                                <div className="flex items-end justify-between border-b border-white/10 pb-2">
-                                    <span className="font-mono text-xs text-white/40 uppercase">Performance</span>
-                                    <span className="font-mono text-xl text-green-400">{project.stats.perf}</span>
-                                </div>
-                                <div className="flex items-end justify-between border-b border-white/10 pb-2">
-                                    <span className="font-mono text-xs text-white/40 uppercase">Reliability</span>
-                                    <span className="font-mono text-xl text-blue-400">{project.stats.uptime}</span>
-                                </div>
-                            </div>
-
-                            <div className="aspect-video bg-black/50 border border-white/10 rounded-lg flex items-center justify-center relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-                                <Code2 size={48} className="text-white/20 group-hover:text-white/40 transition-colors duration-500 group-hover:scale-110 transform" />
-
-                                <div className="absolute bottom-2 right-2 font-mono text-[9px] text-white/20">
-                                    SYS_VISUALIZATION_NA
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Pagination */}
-                        <div className="absolute top-6 right-6 font-mono text-4xl md:text-6xl font-black text-white/[0.03] select-none">
-                            {project.id}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const Projects = () => {
-    const containerRef = useRef(null);
-    const triggerRef = useRef(null);
-
-    useGSAP(() => {
-        const cards = gsap.utils.toArray('.project-card');
-
-        const animation = gsap.timeline({
-            scrollTrigger: {
-                trigger: triggerRef.current,
-                start: "top top",
-                end: `+=${cards.length * 100}%`,
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-            }
-        });
-
-        cards.forEach((card, i) => {
-            if (i === 0) return; // Skip first card (it's already there)
-
-            // Initial state for next cards
-            gsap.set(card, {
-                yPercent: 100,
-                opacity: 0,
-                scale: 0.8
-            });
-
-            animation.to(card, {
-                yPercent: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: "power2.out",
-            }, i - 0.5); // Overlap animations
-
-            // Animate previous card out slightly
-            animation.to(cards[i - 1], {
-                scale: 0.95,
-                opacity: 0.5,
-                filter: "blur(5px)",
-                duration: 1,
-            }, i - 0.5);
-        });
-
-    }, { scope: containerRef });
+    const [activeId, setActiveId] = useState(projects[0].id);
+    const activeProject = projects.find(p => p.id === activeId);
 
     return (
-        <section ref={containerRef} id="projects" className="bg-black text-white relative z-10 w-full">
-            <div ref={triggerRef} className="h-screen w-full flex items-center justify-center relative overflow-hidden">
+        <section id="projects" className="min-h-screen bg-black text-white pt-10 pb-14 px-6 md:px-12 lg:px-24 flex flex-col items-center justify-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '25px 25px' }} />
 
-                {/* Background Context */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <h2 className="text-[20vw] font-['Outfit'] font-black text-white/[0.02] leading-none uppercase tracking-tighter">
-                        PROJECTS
-                    </h2>
-                </div>
-
-                <div className="absolute top-8 left-8 md:top-12 md:left-12 z-20 mix-blend-difference">
-                    <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-white flex-shrink-0" />
-                        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/60">PROJECTS</span>
+            <div className="max-w-[1320px] w-full relative z-10">
+                <div className="flex items-center justify-between mb-3 px-1">
+                    <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-2">
+                            <Crosshair size={9} className="text-blue-500/40" />
+                            <MicroDetail text="MODULE / SYSTEMS / PROJECTS.HEX" />
+                        </div>
+                        <div className="h-[1px] w-10 bg-white/10" />
+                        <MicroDetail text="STABLE_V1" />
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <MicroDetail text="ASSETS: 04" />
+                        <div className="flex gap-1">
+                            {[1, 2].map(i => <div key={i} className="w-1 h-1 bg-white/10 border border-white/20" />)}
+                        </div>
                     </div>
                 </div>
 
-                <div className="relative w-full h-full max-w-[1600px] mx-auto flex items-center justify-center">
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={project}
-                            index={index}
-                            total={projects.length}
-                        />
-                    ))}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-white/10 bg-[#050505] shadow-2xl">
+                    {/* Project Selector Block */}
+                    <div className="lg:col-span-3 border-r border-white/10 p-0 flex flex-col bg-white/[0.01] relative">
+                        <CornerBracket position="tl" />
+                        <CornerBracket position="bl" />
+                        <div className="p-8 border-b border-white/10 bg-white/[0.02]">
+                            <div className="flex items-center gap-2 mb-5">
+                                <Box size={14} className="text-blue-500/50" />
+                                <MicroDetail text="ENTITY_NAV" />
+                            </div>
+                            <h2 className="text-3xl font-['Outfit'] font-black tracking-tighter uppercase leading-none">
+                                Entity <br /> <span className="text-white/20">Library</span>
+                            </h2>
+                        </div>
+                        <div className="flex-1">
+                            {projects.map((project) => (
+                                <button
+                                    key={project.id}
+                                    onClick={() => setActiveId(project.id)}
+                                    className={`w-full text-left p-6 border-b border-white/5 relative transition-none ${activeId === project.id ? 'bg-white/[0.04] opacity-100 font-bold' : 'opacity-20 grayscale border-l-transparent'
+                                        }`}
+                                >
+                                    {activeId === project.id && <div className="absolute left-0 top-0 h-full w-1 bg-blue-500" />}
+                                    <div className="flex justify-between items-start mb-1">
+                                        <MicroDetail text={`REF_0X${project.id}`} />
+                                        <MicroDetail text={project.year} />
+                                    </div>
+                                    <h3 className="text-lg font-['Outfit'] font-bold tracking-tight uppercase leading-tight">{project.title}</h3>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Content Detail Block */}
+                    <div className="lg:col-span-9 flex flex-col relative bg-black">
+                        <div className="p-10 lg:p-12 flex-1 relative border-b border-white/10">
+                            <CornerBracket position="tr" />
+                            <div className="max-w-xl">
+                                <div className="mb-10">
+                                    <div className="flex items-center gap-2 mb-5">
+                                        <Hash size={8} className="text-white/20" />
+                                        <MicroDetail text={`ENTITY // ID_${activeProject.sysId}`} />
+                                    </div>
+                                    <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-6">
+                                        {activeProject.title.split(' ')[0]} <br />
+                                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.15)' }}>
+                                            {activeProject.title.split(' ').slice(1).join(' ')}
+                                        </span>
+                                    </h3>
+                                    <p className="text-sm font-['Outfit'] font-light text-white/50 leading-relaxed border-l border-blue-500/20 pl-5 mb-8">
+                                        {activeProject.description}
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-10">
+                                    <div className="space-y-5">
+                                        <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20 flex items-center gap-2">
+                                            <Settings size={11} className="text-blue-500/30" /> Capabilities
+                                        </h4>
+                                        <ul className="space-y-2.5">
+                                            {activeProject.features.map((f, i) => (
+                                                <li key={i} className="flex items-center gap-2.5">
+                                                    <div className="w-1 h-1 bg-white/20" />
+                                                    <span className="font-['Outfit'] text-[11px] text-white/40 uppercase tracking-widest">{f}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div className="space-y-5">
+                                        <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/20 flex items-center gap-2">
+                                            <Terminal size={11} className="text-blue-500/30" /> Architecture
+                                        </h4>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {activeProject.tech.map((t, i) => (
+                                                <span key={i} className="px-2.5 py-0.5 border border-white/10 font-mono text-[8px] text-white/30 uppercase tracking-widest">{t}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-12 flex gap-5">
+                                    <a href={activeProject.github} className="px-8 py-3.5 bg-white text-black font-['Outfit'] font-black uppercase tracking-tighter text-[11px]">Source_Code</a>
+                                    <a href={activeProject.live} className="px-8 py-3.5 border border-white/20 text-white font-['Outfit'] font-black uppercase tracking-tighter text-[11px]">System_Logs</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Integrated Metrics Column */}
+                        <div className="grid grid-cols-3 bg-[#080808]">
+                            {activeProject.metrics.map((m, i) => (
+                                <ProjectMetric key={i} label={m.label} value={m.value} sub={m.label.toUpperCase()} id={`${activeId}${i}`} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center px-2">
+                    <MicroDetail text="TRACKER: ACTIVE" className="text-blue-500/30" />
+                    <div className="italic text-white/5 font-mono text-[6px] uppercase tracking-[1em]">SYSTEM_ARCHIVE</div>
+                    <MicroDetail text="STATUS: SYNCHRONIZED" />
                 </div>
             </div>
         </section>
@@ -224,4 +222,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
