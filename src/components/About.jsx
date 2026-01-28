@@ -241,7 +241,7 @@ const About = () => {
                                         />
                                     </div>
                                     <div className="mt-2">
-                                        <div className="text-3xl font-['Outfit'] font-black text-white tracking-tighter">62 <span className="text-xs text-white/40 font-normal">SOLVED</span></div>
+                                        {/* <div className="text-3xl font-['Outfit'] font-black text-white tracking-tighter">63 <span className="text-xs text-white/40 font-normal">SOLVED</span></div> */}
                                         <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40 mt-1 flex items-center gap-2">
                                             <div className="w-1 h-1 bg-white/20" /> RANKED_ACTIVE
                                         </div>
