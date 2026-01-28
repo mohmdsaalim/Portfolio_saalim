@@ -228,7 +228,29 @@ const About = () => {
                         {/* Telemetry Column (3/8 of the 8 cols) */}
                         <div className="lg:col-span-3 flex flex-col relative">
                             <div className="border-b border-white/10 flex-1">
-                                <MetricBlock label="Throughput" value="150K+" sub="R_P_S / PEAK" id="A81" />
+                                <div className="border-r border-white/10 bg-white/[0.01] p-6 flex flex-col justify-between aspect-square relative group overflow-hidden">
+                                    <div className="flex justify-between items-start">
+                                        <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">LeetCode</span>
+                                        <MicroDetail text="ID:0XLC_62" />
+                                    </div>
+                                    <div className="flex-1 flex flex-col justify-center items-center py-2">
+                                        <img
+                                            src="https://leetcard.jacoblin.cool/mhmd_saalim?theme=dark&font=Outfit&ext=activity&animation=false"
+                                            alt="LeetCode Stats"
+                                            className="w-full h-full object-contain filter grayscale contrast-125"
+                                        />
+                                    </div>
+                                    <div className="mt-2">
+                                        <div className="text-3xl font-['Outfit'] font-black text-white tracking-tighter">62 <span className="text-xs text-white/40 font-normal">SOLVED</span></div>
+                                        <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/40 mt-1 flex items-center gap-2">
+                                            <div className="w-1 h-1 bg-white/20" /> RANKED_ACTIVE
+                                        </div>
+                                    </div>
+                                    <div className="absolute bottom-2 right-2 flex gap-1">
+                                        <div className="w-1 h-1 bg-white/5" />
+                                        <div className="w-1 h-1 bg-white/10" />
+                                    </div>
+                                </div>
                             </div>
                             <div className="border-b border-white/10 flex-1">
                                 <MetricBlock label="Lat. Range" value="< 6ms" sub="P99_DISTRIBUTED" id="B12" />
