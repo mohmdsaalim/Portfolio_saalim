@@ -48,6 +48,7 @@ const projects = [
         features: ["Tracing", "Auto-scaling", "Caching"],
         sysId: "X81_CORE"
     },
+    
     {
         id: "02",
         title: "Distributed Scheduler",

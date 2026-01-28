@@ -5,7 +5,7 @@ import {
     Microchip, Fingerprint, Activity, Workflow,
     Crosshair, Hash, Square, Package, Settings
 } from 'lucide-react';
-import aboutImage from '../assets/about-me.JPEG';
+import aboutImage from '../assets/Saalim_main1.JPEG';
 
 const MicroDetail = ({ text, className = "" }) => (
     <span className={`font-mono text-[6px] tracking-[0.3em] text-white/10 uppercase select-none ${className}`}>

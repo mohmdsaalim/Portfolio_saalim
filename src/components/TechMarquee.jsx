@@ -9,8 +9,8 @@ const techStack = [
     { name: 'Redis', icon: SiRedis, level: 'ADVANCED' },
     { name: 'Gin', icon: SiGin, level: 'ADVANCED' },
     { name: 'React', icon: SiReact, level: 'INTERMEDIATE' },
-    { name: 'TypeScript', icon: SiTypescript, level: 'CORE' },
-    { name: 'K8s', icon: SiKubernetes, level: 'RESEARCH' },
+    { name: 'TypeScript', icon: SiJavascript, level: 'CORE' },
+    { name: 'K8s', icon: SiGithub, level: 'RESEARCH' },
 ];
 
 const TechMarquee = () => {
