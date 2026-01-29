@@ -3,9 +3,10 @@ import {
     Terminal, Cpu, Shield, Globe, Layers, Zap,
     Database, Network, Infinity, Code, Binary,
     Microchip, Fingerprint, Activity, Workflow,
-    Crosshair, Hash, Square, Package, Settings
+    Crosshair, Hash, Square, Package, Settings, Download
 } from 'lucide-react';
 import aboutImage from '../assets/Saalim_main1.JPEG';
+import cvFile from '../assets/Saalim.MAIN-CV.pdf';
 
 const MicroDetail = ({ text, className = "" }) => (
     <span className={`font-mono text-[6px] tracking-[0.3em] text-white/30 uppercase select-none ${className}`}>
@@ -253,7 +254,72 @@ const About = () => {
                                 </div>
                             </div>
                             <div className="border-b border-white/10 flex-1">
-                                <MetricBlock label="Lat. Range" value="< 6ms" sub="P99_DISTRIBUTED" id="B12" />
+                                <div
+                                    className="border-r border-white/10 bg-white/[0.01] p-6 flex flex-col justify-between aspect-square relative overflow-hidden group"
+                                >
+                                    <div className="flex justify-between items-start">
+                                        <MicroDetail text="ID:0XCV_DL" />
+                                        <div className="flex flex-col items-end">
+                                            <div className="flex gap-0.5">
+                                                {[1, 2, 3].map(i => <div key={i} className="w-1 h-1 bg-white/20" />)}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Quote Section */}
+                                    <div className="mt-2 px-1">
+                                        <div className="font-mono text-[7px] text-white/40 uppercase leading-tight tracking-[0.2em] italic">
+                                            "Architectural blueprints <br /> for high-scale systems."
+                                        </div>
+                                    </div>
+
+                                    {/* Inner box with grid background */}
+                                    <div className="flex-1 flex flex-col items-center justify-center relative mt-2 mb-2">
+                                        <div className="w-32 h-32 border border-white/10 relative overflow-hidden flex items-center justify-center bg-white/[0.02]">
+                                            {/* Grey Check/Grid BG */}
+                                            <div className="absolute inset-0 opacity-[0.2]"
+                                                style={{
+                                                    backgroundImage: `
+                                                        linear-gradient(45deg, rgba(128,128,128,0.1) 25%, transparent 25%), 
+                                                        linear-gradient(-45deg, rgba(128,128,128,0.1) 25%, transparent 25%), 
+                                                        linear-gradient(45deg, transparent 75%, rgba(128,128,128,0.1) 75%), 
+                                                        linear-gradient(-45deg, transparent 75%, rgba(128,128,128,0.1) 75%)
+                                                    `,
+                                                    backgroundSize: '10px 10px',
+                                                    backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px'
+                                                }}
+                                            />
+
+                                            {/* Download Icon Button Style - restricted link */}
+                                            <a
+                                                href={cvFile}
+                                                download="Saalim_CV.pdf"
+                                                className="relative z-10 p-4 bg-black border border-white/20 shadow-2xl cursor-pointer"
+                                            >
+                                                <Download size={20} className="text-white/60" />
+                                            </a>
+
+                                            {/* Animated Text Overlay - Right to Left */}
+                                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+                                                <div className="whitespace-nowrap font-['Outfit'] font-light text-[10px] text-white/90 animate-cv-scroll uppercase tracking-[0.3em] -translate-y-10">
+                                                    Download CV
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="mt-2 text-right">
+                                        <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-white/20 flex items-center justify-end gap-2">
+                                            <div className="w-1 h-1 bg-white/10" /> STORAGE_STABLE
+                                        </div>
+                                    </div>
+
+                                    <div className="absolute bottom-2 right-2 flex gap-1">
+                                        <div className="w-1 h-1 bg-white/5" />
+                                        <div className="w-1 h-1 bg-white/10" />
+                                    </div>
+                                </div>
                             </div>
                             <div className="flex-1 p-8 bg-blue-500/[0.02] flex flex-col justify-end gap-6 relative">
                                 <div className="absolute top-4 left-4">
