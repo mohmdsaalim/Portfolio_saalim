@@ -1,41 +1,58 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { SiGithub, SiGo, SiJavascript, SiTypescript, SiDocker, SiReact, SiTailwindcss, SiPostgresql, SiRedis, SiKubernetes, SiGin } from 'react-icons/si';
+import React from 'react';
+import { motion } from 'framer-motion';
+import {
+    SiGithub, SiGo, SiJavascript, SiDocker,
+    SiReact, SiPostgresql, SiRedis,
+    SiGin, SiGit, SiJsonwebtokens
+} from 'react-icons/si';
 
 const techStack = [
-    { name: 'Golang', icon: SiGo, level: 'CORE' },
-    { name: 'Docker', icon: SiDocker, level: 'EXPERT' },
-    { name: 'Postgres', icon: SiPostgresql, level: 'EXPERT' },
-    { name: 'Redis', icon: SiRedis, level: 'ADVANCED' },
-    { name: 'Gin', icon: SiGin, level: 'ADVANCED' },
-    { name: 'React', icon: SiReact, level: 'INTERMEDIATE' },
-    { name: 'TypeScript', icon: SiJavascript, level: 'CORE' },
-    { name: 'K8s', icon: SiGithub, level: 'RESEARCH' },
+    { name: 'Golang', icon: SiGo },
+    { name: 'Fiber', icon: SiReact }, // SiGofiber is not available in some react-icons versions, using SiGo as fallback
+    { name: 'GORM', icon: SiGin },
+    { name: 'Docker', icon: SiDocker },
+    { name: 'Postgres', icon: SiPostgresql },
+    { name: 'Redis', icon: SiRedis },
+    { name: 'Git', icon: SiGit },
+    { name: 'JWT', icon: SiJsonwebtokens },
+    { name: 'TypeScript', icon: SiJavascript },
+    { name: 'K8s', icon: SiGithub },
 ];
 
 const TechMarquee = () => {
-    const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
-
-    // Map scroll progress (0 to 1) to horizontal translation (-20% to 20% or similar)
-    const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
     return (
-        <div ref={containerRef} className="w-full bg-black relative z-30 overflow-hidden">
-            {/* Smooth Scroll-bound Marquee */}
-            <div className="relative flex overflow-hidden border-y border-white/5 py-8">
+        <div className="w-full bg-black relative z-30 overflow-hidden pt-10">
+            {/* Section Header */}
+            <div className="flex justify-center mb-4">
+                <div className="flex items-center gap-4">
+                    <div className="h-[1px] w-8 bg-blue-500/30" />
+                    <span className="font-mono text-[7px] tracking-[0.5em] text-white/30 uppercase">
+                        Core_Engine_Infrastructure_v3.02
+                    </span>
+                    <div className="h-[1px] w-8 bg-blue-500/30" />
+                </div>
+            </div>
+
+            {/* Continuous Automatic Marquee */}
+            <div className="relative flex overflow-hidden border-y border-white/5 py-6">
                 <motion.div
                     className="flex whitespace-nowrap"
-                    style={{ x, willChange: 'transform' }}
+                    animate={{ x: [0, -1250] }} // Adjusted for current stack count
+                    transition={{
+                        x: {
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            duration: 35,
+                            ease: "linear",
+                        },
+                    }}
+                    style={{ willChange: 'transform' }}
                 >
-                    {/* Multiple sets for visibility during scroll */}
-                    {[...techStack, ...techStack, ...techStack].map((tech, index) => (
-                        <div key={index} className="flex flex-col items-center justify-center mx-12 md:mx-20 group">
-                            <div className="text-white/50 group-hover:text-white/80 transition-colors">
-                                <tech.icon size={64} />
+                    {/* Double the stack for seamless looping */}
+                    {[...techStack, ...techStack].map((tech, index) => (
+                        <div key={index} className="flex flex-col items-center justify-center mx-10 md:mx-14 group">
+                            <div className="text-white/70 group-hover:text-white/90 transition-colors">
+                                <tech.icon size={48} />
                             </div>
                         </div>
                     ))}

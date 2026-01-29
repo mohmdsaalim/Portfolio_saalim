@@ -21,7 +21,7 @@ const Hero = () => {
 
             {/* Scroll Down Indicator */}
             <motion.div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/50"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/70"
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >

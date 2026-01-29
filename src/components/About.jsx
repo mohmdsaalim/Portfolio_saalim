@@ -8,7 +8,7 @@ import {
 import aboutImage from '../assets/Saalim_main1.JPEG';
 
 const MicroDetail = ({ text, className = "" }) => (
-    <span className={`font-mono text-[6px] tracking-[0.3em] text-white/10 uppercase select-none ${className}`}>
+    <span className={`font-mono text-[6px] tracking-[0.3em] text-white/30 uppercase select-none ${className}`}>
         {text}
     </span>
 );
@@ -31,37 +31,37 @@ const TechLine = () => (
 );
 
 const MetricBlock = ({ label, value, sub, id }) => (
-    <div className="border-r border-white/10 bg-white/[0.01] p-8 flex flex-col justify-between aspect-square relative group">
+    <div className="border-r border-white/20 bg-white/[0.02] p-8 flex flex-col justify-between aspect-square relative group">
         <div className="flex justify-between items-start">
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">{label}</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/50">{label}</span>
             <MicroDetail text={`ID:0X${id}`} />
         </div>
         <div>
             <div className="text-5xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
-            <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-blue-500/60 mt-3 flex items-center gap-2">
-                <div className="w-1 h-1 bg-blue-500/20" /> {sub}
+            <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-blue-500/80 mt-3 flex items-center gap-2">
+                <div className="w-1 h-1 bg-blue-500/40" /> {sub}
             </div>
         </div>
         <div className="absolute bottom-2 right-2 flex gap-1">
-            <div className="w-1 h-1 bg-white/5" />
-            <div className="w-1 h-1 bg-white/10" />
+            <div className="w-1 h-1 bg-white/15" />
+            <div className="w-1 h-1 bg-white/25" />
         </div>
     </div>
 );
 
 const SkillModule = ({ icon: Icon, title, desc, index }) => (
-    <div className="border-r border-white/5 p-6 flex flex-col justify-between min-h-[160px] relative">
+    <div className="border-r border-white/10 p-6 flex flex-col justify-between min-h-[160px] relative">
         <div className="flex items-start justify-between">
-            <div className="p-2.5 bg-white/5 border border-white/10">
-                <Icon size={16} className="text-white/40" />
+            <div className="p-2.5 bg-white/10 border border-white/20">
+                <Icon size={16} className="text-white/60" />
             </div>
             <MicroDetail text={`MOD_0${index}`} />
         </div>
         <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/80 mb-2">{title}</h4>
-            <p className="font-['Outfit'] text-[9px] text-white/20 uppercase leading-relaxed tracking-wider">{desc}</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/90 mb-2">{title}</h4>
+            <p className="font-['Outfit'] text-[9px] text-white/40 uppercase leading-relaxed tracking-wider">{desc}</p>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/[0.02]" />
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/[0.05]" />
     </div>
 );
 
@@ -191,21 +191,21 @@ const About = () => {
 
                                 <div className="space-y-12">
                                     <div className="relative">
-                                        <div className="absolute -left-6 top-1 text-white/10 font-mono text-[8px]">01</div>
-                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 mb-4 flex items-center gap-2">
-                                            <Terminal size={12} className="text-blue-500/40" /> Systems_Narrative
+                                        <div className="absolute -left-6 top-1 text-white/20 font-mono text-[8px]">01</div>
+                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/50 mb-4 flex items-center gap-2">
+                                            <Terminal size={12} className="text-blue-500/60" /> Systems_Narrative
                                         </h3>
-                                        <p className="text-[13px] text-white/40 leading-relaxed font-light tracking-wide">
+                                        <p className="text-[13px] text-white/60 leading-relaxed font-light tracking-wide">
                                             Engineer specialized in building self-healing distributed systems. I operate at the intersection of OS-level optimization and distributed consensus, ensuring that services remain performant under extreme load.
                                         </p>
                                     </div>
 
                                     <div className="relative">
-                                        <div className="absolute -left-6 top-1 text-white/10 font-mono text-[8px]">02</div>
-                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 mb-4 flex items-center gap-2">
-                                            <Activity size={12} className="text-blue-500/40" /> Engineering_Philosophy
+                                        <div className="absolute -left-6 top-1 text-white/20 font-mono text-[8px]">02</div>
+                                        <h3 className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/50 mb-4 flex items-center gap-2">
+                                            <Activity size={12} className="text-blue-500/60" /> Engineering_Philosophy
                                         </h3>
-                                        <p className="text-[13px] text-white/40 leading-relaxed font-light tracking-wide">
+                                        <p className="text-[13px] text-white/60 leading-relaxed font-light tracking-wide">
                                             My primary thesis is that scalability is a byproduct of simplicity. I eliminate architectural waste and focus on building low-level primitives that empower developers to scale without complexity.
                                         </p>
                                     </div>

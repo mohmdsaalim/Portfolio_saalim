@@ -41,6 +41,7 @@ body {
 
 @theme {
   --font-handwritten: "Caveat", cursive;
+  --font-mono: "Space Mono", monospace;
 
   --animate-shine: shine 5s linear infinite;
 }

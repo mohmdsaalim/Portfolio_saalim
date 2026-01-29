@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 const MicroDetail = ({ text, className = "" }) => (
-    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/10 uppercase select-none ${className}`}>
+    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/30 uppercase select-none ${className}`}>
         {text}
     </span>
 );
@@ -22,14 +22,14 @@ const CornerBracket = ({ position = "tl" }) => {
 };
 
 const ProjectMetric = ({ label, value, sub, id }) => (
-    <div className="border-r border-white/10 bg-white/[0.01] p-5 flex flex-col justify-between h-26 relative">
+    <div className="border-r border-white/20 bg-white/[0.02] p-5 flex flex-col justify-between h-26 relative">
         <div className="flex justify-between items-start">
-            <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/20">{label}</span>
+            <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/40">{label}</span>
             <MicroDetail text={`0x${id}`} />
         </div>
         <div>
             <div className="text-2xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
-            <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/40 mt-1">{sub}</div>
+            <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/60 mt-1">{sub}</div>
         </div>
     </div>
 );
@@ -48,7 +48,7 @@ const projects = [
         features: ["Tracing", "Auto-scaling", "Caching"],
         sysId: "X81_CORE"
     },
-    
+
     {
         id: "02",
         title: "Distributed Scheduler",
@@ -166,7 +166,7 @@ const Projects = () => {
                                             {activeProject.title.split(' ').slice(1).join(' ')}
                                         </span>
                                     </h3>
-                                    <p className="text-sm font-['Outfit'] font-light text-white/50 leading-relaxed border-l border-blue-500/20 pl-5 mb-8">
+                                    <p className="text-sm font-['Outfit'] font-light text-white/70 leading-relaxed border-l border-blue-500/40 pl-5 mb-8">
                                         {activeProject.description}
                                     </p>
                                 </div>
@@ -179,8 +179,8 @@ const Projects = () => {
                                         <ul className="space-y-2.5">
                                             {activeProject.features.map((f, i) => (
                                                 <li key={i} className="flex items-center gap-2.5">
-                                                    <div className="w-1 h-1 bg-white/20" />
-                                                    <span className="font-['Outfit'] text-[11px] text-white/40 uppercase tracking-widest">{f}</span>
+                                                    <div className="w-1 h-1 bg-white/40" />
+                                                    <span className="font-['Outfit'] text-[11px] text-white/60 uppercase tracking-widest">{f}</span>
                                                 </li>
                                             ))}
                                         </ul>

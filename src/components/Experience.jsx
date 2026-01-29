@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 const MicroDetail = ({ text, className = "" }) => (
-    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/10 uppercase select-none ${className}`}>
+    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/30 uppercase select-none ${className}`}>
         {text}
     </span>
 );
@@ -76,9 +76,9 @@ const Experience = () => {
                             { k: "Index", v: "PROF_TRAJECTORY" },
                             { k: "Checksum", v: "VALIDATED" }
                         ].map((item, i) => (
-                            <div key={i} className={`p-4 flex flex-col gap-1 ${i < 3 ? 'md:border-r border-white/10' : ''}`}>
+                            <div key={i} className={`p-4 flex flex-col gap-1 ${i < 3 ? 'md:border-r border-white/20' : ''}`}>
                                 <MicroDetail text={item.k} />
-                                <span className="font-mono text-[9px] text-white/40 tracking-widest">{item.v}</span>
+                                <span className="font-mono text-[9px] text-white/60 tracking-widest">{item.v}</span>
                             </div>
                         ))}
                     </div>
@@ -128,7 +128,7 @@ const Experience = () => {
                                             </div>
 
                                             <div className="mb-8">
-                                                <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.4em] mb-3">{exp.period}</div>
+                                                <div className="font-mono text-[10px] text-white/50 uppercase tracking-[0.4em] mb-3">{exp.period}</div>
                                                 <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-4">
                                                     {exp.role.split(' ')[0]} <br />
                                                     <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.15)' }}>
@@ -141,7 +141,7 @@ const Experience = () => {
                                                 </div>
                                             </div>
 
-                                            <p className="text-sm font-['Outfit'] font-light text-white/50 leading-relaxed border-l border-blue-500/20 pl-5 mb-8">
+                                            <p className="text-sm font-['Outfit'] font-light text-white/70 leading-relaxed border-l border-blue-500/40 pl-5 mb-8">
                                                 {exp.description}
                                             </p>
                                         </div>
