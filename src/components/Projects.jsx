@@ -99,7 +99,7 @@ const projects = [
   category: "Backend Systems",
   description: "Asynchronous task scheduling engine supporting delayed execution. Designed using Go concurrency primitives with channel-based orchestration.",
   tech: ["Go", "Goroutines", "Channels", "REST API"],
-  github: "https://github.com/yourname/task-scheduler",
+  github: "https://github.com/mohmdsaalim/Go-Mini_Projects/tree/main/TaskScheduler-Go",
   live: "Localhost / CLI",
   year: "2025",
   metrics: [
