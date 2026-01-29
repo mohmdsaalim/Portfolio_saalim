@@ -37,7 +37,7 @@ const MetricBlock = ({ label, value, sub, id }) => (
             <MicroDetail text={`ID:0X${id}`} />
         </div>
         <div>
-            <div className="text-5xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
+            <div className="text-5xl font-['Outfit'] font-black text-neutral-200 tracking-tighter">{value}</div>
             <div className="font-mono text-[8px] uppercase tracking-[0.4em] text-blue-500/80 mt-3 flex items-center gap-2">
                 <div className="w-1 h-1 bg-blue-500/40" /> {sub}
             </div>
@@ -58,7 +58,7 @@ const SkillModule = ({ icon: Icon, title, desc, index }) => (
             <MicroDetail text={`MOD_0${index}`} />
         </div>
         <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-white/90 mb-2">{title}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-neutral-200/90 mb-2">{title}</h4>
             <p className="font-['Outfit'] text-[9px] text-white/40 uppercase leading-relaxed tracking-wider">{desc}</p>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/[0.05]" />
@@ -180,7 +180,7 @@ const About = () => {
                                         <Hash size={10} className="text-white/20" />
                                         <MicroDetail text="OBJECTIVE_CORE" />
                                     </div>
-                                    <h2 className="text-7xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.85] mb-8">
+                                    <h2 className="text-7xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.85] mb-8 text-neutral-200">
                                         Pure <br />
                                         <span className="text-transparent border-text text-white/10" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>Logic</span>
                                     </h2>

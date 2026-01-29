@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 const MicroDetail = ({ text, className = "" }) => (
-    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/10 uppercase select-none ${className}`}>
+    <span className={`font-mono text-[6px] tracking-[0.2em] text-white/30 uppercase select-none ${className}`}>
         {text}
     </span>
 );
@@ -90,9 +90,9 @@ const Contact = () => {
                             { k: "Node", v: "KOCHI_EDGE_SERVER" },
                             { k: "Integrity", v: "CHECKSUM_ALPHA" }
                         ].map((item, i) => (
-                            <div key={i} className={`p-4 flex flex-col gap-1 ${i < 3 ? 'md:border-r border-white/10' : ''}`}>
+                            <div key={i} className={`p-4 flex flex-col gap-1 ${i < 3 ? 'md:border-r border-white/20' : ''}`}>
                                 <MicroDetail text={item.k} />
-                                <span className="font-mono text-[9px] text-white/40 tracking-widest">{item.v}</span>
+                                <span className="font-mono text-[9px] text-white/60 tracking-widest">{item.v}</span>
                             </div>
                         ))}
                     </div>
@@ -110,29 +110,50 @@ const Contact = () => {
                                         <MessageSquare size={14} className="text-blue-500/50" />
                                         <MicroDetail text="SIGNAL_CONTROL" />
                                     </div>
-                                    <h2 className="text-4xl font-['Outfit'] font-black tracking-tighter uppercase leading-none mb-10">
-                                        Link <br /> <span className="text-white/20">Up</span>
+                                    <h2 className="text-4xl font-['Outfit'] font-black tracking-tighter uppercase leading-none mb-10 text-neutral-200">
+                                        Link <br /> <span className="text-white/40">Up</span>
                                     </h2>
-                                    <p className="text-xs font-['Outfit'] font-light text-white/40 leading-relaxed italic border-l border-blue-500/20 pl-4 mb-12">
+                                    <p className="text-xs font-['Outfit'] font-light text-white/60 leading-relaxed italic border-l border-blue-500/40 pl-4 mb-12">
                                         "Currently accepting high-impact mandates."
                                     </p>
                                 </div>
 
-                                <div className="space-y-8">
-                                    <div className="flex gap-6">
-                                        {[
-                                            { icon: Github, url: "https://github.com/mohmdsaalim" },
-                                            { icon: Linkedin, url: "https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/" },
-                                            { icon: Instagram, url: "#" }
-                                        ].map((soc, i) => (
-                                            <a key={i} href={soc.url} className="opacity-20 hover:opacity-100 transition-none">
-                                                <soc.icon size={14} />
-                                            </a>
-                                        ))}
+                                <div className="mt-auto">
+                                    <div className="border border-white/10 bg-white/[0.02] p-5 relative overflow-hidden mb-8">
+                                        {/* Checkered Pattern Background */}
+                                        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                                            style={{
+                                                backgroundImage: `linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), 
+                                                                linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff)`,
+                                                backgroundSize: '10px 10px',
+                                                backgroundPosition: '0 0, 5px 5px'
+                                            }}
+                                        />
+
+                                        <div className="relative z-10">
+                                            <div className="flex gap-5 mb-6">
+                                                {[
+                                                    { icon: Github, url: "https://github.com/mohmdsaalim" },
+                                                    { icon: Linkedin, url: "https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/" },
+                                                    { icon: Instagram, url: "#" }
+                                                ].map((soc, i) => (
+                                                    <a key={i} href={soc.url} className="text-white/40 hover:text-white transition-colors">
+                                                        <soc.icon size={14} />
+                                                    </a>
+                                                ))}
+                                            </div>
+                                            <div className="space-y-1">
+                                                <MicroDetail text="NODE_PHILOSOPHY" />
+                                                <p className="font-mono text-[8px] text-white/50 leading-relaxed uppercase tracking-widest">
+                                                    "Optimizing the intersection of logic and interface."
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="pt-4 border-t border-white/5">
+
+                                    <div className="pt-4 border-t border-white/10">
                                         <MicroDetail text="DIRECT_TRANS" className="mb-2 block" />
-                                        <div className="font-mono text-[8px] text-white/30 truncate">saalim.dev@internal</div>
+                                        <div className="font-mono text-[8px] text-white/50 truncate">saalim.dev@internal</div>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +181,7 @@ const Contact = () => {
                                                     value={formData.name}
                                                     onChange={handleChange}
                                                     placeholder="FULL_NAME"
-                                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/5"
+                                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/20"
                                                 />
                                             </div>
                                             <div className="border-b border-white/10 pb-2">
@@ -171,7 +192,7 @@ const Contact = () => {
                                                     value={formData.email}
                                                     onChange={handleChange}
                                                     placeholder="EMAIL_ENDPOINT"
-                                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/5"
+                                                    className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/20"
                                                 />
                                             </div>
                                         </div>
@@ -184,7 +205,7 @@ const Contact = () => {
                                                 onChange={handleChange}
                                                 placeholder="TECHNICAL_REQUIREMENTS..."
                                                 rows="3"
-                                                className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/5 resize-none"
+                                                className="w-full bg-transparent border-none outline-none font-['Outfit'] text-xl text-white placeholder:text-white/20 resize-none"
                                             />
                                         </div>
 
@@ -197,7 +218,7 @@ const Contact = () => {
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="px-10 py-5 bg-white text-black font-['Outfit'] font-black uppercase tracking-tighter text-xs transition-none flex items-center gap-4"
+                                            className="px-10 py-5 bg-black text-white border border-white/20 font-['Outfit'] font-black uppercase tracking-tighter text-xs transition-none flex items-center gap-4"
                                         >
                                             {isSubmitting ? 'TRANSMITTING...' : 'Execute_Transmission'} <Activity size={14} />
                                         </button>
@@ -213,10 +234,10 @@ const Contact = () => {
                                     { label: "Status", value: "LISTENING", sub: "PORT_READY" }
                                 ].map((m, i) => (
                                     <div key={i} className="p-5 border-r border-white/10 flex flex-col justify-between h-24 relative">
-                                        <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/20">{m.label}</span>
+                                        <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/40">{m.label}</span>
                                         <div>
-                                            <div className="text-2xl font-['Outfit'] font-black text-white tracking-tighter">{m.value}</div>
-                                            <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/40 mt-1">{m.sub}</div>
+                                            <div className="text-2xl font-['Outfit'] font-black text-neutral-200 tracking-tighter">{m.value}</div>
+                                            <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/60 mt-1">{m.sub}</div>
                                         </div>
                                     </div>
                                 ))}

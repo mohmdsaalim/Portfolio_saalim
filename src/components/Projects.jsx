@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Github, ArrowUpRight, Layers, Globe, Terminal,
     Hash, Crosshair, Box, Settings, Cpu, Activity,
@@ -28,11 +28,55 @@ const ProjectMetric = ({ label, value, sub, id }) => (
             <MicroDetail text={`0x${id}`} />
         </div>
         <div>
-            <div className="text-2xl font-['Outfit'] font-black text-white tracking-tighter">{value}</div>
+            <div className="text-2xl font-['Outfit'] font-black text-neutral-200 tracking-tighter">{value}</div>
             <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/60 mt-1">{sub}</div>
         </div>
     </div>
 );
+
+const SourceCodeButton = ({ url }) => {
+    const [showIcon, setShowIcon] = useState(false);
+
+    useEffect(() => {
+        const cycle = () => {
+            // After 5 seconds, show icon
+            const showTimer = setTimeout(() => {
+                setShowIcon(true);
+                // After 2 more seconds, show text again
+                const hideTimer = setTimeout(() => {
+                    setShowIcon(false);
+                }, 2000);
+                return () => clearTimeout(hideTimer);
+            }, 5000);
+
+            return showTimer;
+        };
+
+        const timer = cycle();
+        const interval = setInterval(() => {
+            cycle();
+        }, 7000); // 5s text + 2s icon
+
+        return () => {
+            clearTimeout(timer);
+            clearInterval(interval);
+        };
+    }, []);
+
+    return (
+        <a
+            href={url}
+            className="relative inline-flex items-center justify-center w-[160px] h-[48px] border border-white/20 text-white font-['Outfit'] font-black uppercase tracking-tighter text-[11px] overflow-hidden"
+        >
+            <span className={`relative z-20 transition-all duration-300 ${showIcon ? 'opacity-0 translate-y-[-10px]' : 'opacity-100 translate-y-0'}`}>
+                Source_Code
+            </span>
+            <div className={`absolute inset-0 z-10 flex items-center justify-center bg-black transition-all duration-300 ${showIcon ? 'translate-y-0' : 'translate-y-full'}`}>
+                <Github size={20} className="text-white" />
+            </div>
+        </a>
+    );
+};
 
 const projects = [
     {
@@ -127,7 +171,7 @@ const Projects = () => {
                                 <Box size={14} className="text-blue-500/50" />
                                 <MicroDetail text="ENTITY_NAV" />
                             </div>
-                            <h2 className="text-3xl font-['Outfit'] font-black tracking-tighter uppercase leading-none">
+                            <h2 className="text-3xl font-['Outfit'] font-black tracking-tighter uppercase leading-none text-neutral-200">
                                 Entity <br /> <span className="text-white/20">Library</span>
                             </h2>
                         </div>
@@ -160,9 +204,9 @@ const Projects = () => {
                                         <Hash size={8} className="text-white/20" />
                                         <MicroDetail text={`ENTITY // ID_${activeProject.sysId}`} />
                                     </div>
-                                    <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-6">
+                                    <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-6 text-neutral-200">
                                         {activeProject.title.split(' ')[0]} <br />
-                                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.15)' }}>
+                                        <span className="text-transparent border-text text-white/10" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
                                             {activeProject.title.split(' ').slice(1).join(' ')}
                                         </span>
                                     </h3>
@@ -196,9 +240,8 @@ const Projects = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="mt-12 flex gap-5">
-                                    <a href={activeProject.github} className="px-8 py-3.5 bg-white text-black font-['Outfit'] font-black uppercase tracking-tighter text-[11px]">Source_Code</a>
-                                    <a href={activeProject.live} className="px-8 py-3.5 border border-white/20 text-white font-['Outfit'] font-black uppercase tracking-tighter text-[11px]">System_Logs</a>
+                                <div className="mt-12">
+                                    <SourceCodeButton url={activeProject.github} />
                                 </div>
                             </div>
                         </div>

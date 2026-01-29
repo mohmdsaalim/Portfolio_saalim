@@ -95,7 +95,7 @@ const Experience = () => {
                                     <Activity size={14} className="text-blue-500/50" />
                                     <MicroDetail text="SEQUENCE_INDEX" />
                                 </div>
-                                <h2 className="text-3xl font-['Outfit'] font-black tracking-tighter uppercase leading-none">
+                                <h2 className="text-3xl font-['Outfit'] font-black tracking-tighter uppercase leading-none text-neutral-200">
                                     System <br /> <span className="text-white/20">History</span>
                                 </h2>
                             </div>
@@ -129,9 +129,9 @@ const Experience = () => {
 
                                             <div className="mb-8">
                                                 <div className="font-mono text-[10px] text-white/50 uppercase tracking-[0.4em] mb-3">{exp.period}</div>
-                                                <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-4">
+                                                <h3 className="text-5xl font-['Outfit'] font-black tracking-tighter uppercase leading-[0.9] mb-4 text-neutral-200">
                                                     {exp.role.split(' ')[0]} <br />
-                                                    <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.15)' }}>
+                                                    <span className="text-transparent border-text text-white/10" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>
                                                         {exp.role.split(' ').slice(1).join(' ')}
                                                     </span>
                                                 </h3>
@@ -180,7 +180,7 @@ const Experience = () => {
                                     <div key={i} className="p-5 border-r border-white/10 flex flex-col justify-between h-24 relative">
                                         <span className="font-mono text-[7px] uppercase tracking-[0.2em] text-white/20">{m.label}</span>
                                         <div>
-                                            <div className="text-2xl font-['Outfit'] font-black text-white tracking-tighter">{m.value}</div>
+                                            <div className="text-2xl font-['Outfit'] font-black text-neutral-200 tracking-tighter">{m.value}</div>
                                             <div className="font-mono text-[6px] uppercase tracking-[0.3em] text-blue-500/40 mt-1">{m.sub}</div>
                                         </div>
                                     </div>
