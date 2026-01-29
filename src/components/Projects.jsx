@@ -93,19 +93,28 @@ const projects = [
         sysId: "X81_CORE"
     },
 
-    {
-        id: "02",
-        title: "Distributed Scheduler",
-        category: "Infrastructure",
-        description: "Fault-tolerant orchestration engine for large-scale workloads. Built with K8s-native integration and Kafka event streaming.",
-        tech: ["Go", "Kafka", "K8s", "Docker"],
-        github: "#",
-        live: "#",
-        year: "2024",
-        metrics: [{ label: "Precision", value: "1ms" }, { label: "Payloads", value: "1.2M" }, { label: "Deploy", value: "Zero-DT" }],
-        features: ["Tolerance", "Streaming", "Leveling"],
-        sysId: "Y12_SCHED"
-    },
+   {
+  id: "02",
+  title: "In-Memory Task Scheduler",
+  category: "Backend Systems",
+  description: "Asynchronous task scheduling engine supporting delayed execution. Designed using Go concurrency primitives with channel-based orchestration.",
+  tech: ["Go", "Goroutines", "Channels", "REST API"],
+  github: "https://github.com/yourname/task-scheduler",
+  live: "Localhost / CLI",
+  year: "2025",
+  metrics: [
+    { label: "Latency", value: "<1ms enqueue" },
+    { label: "Tasks", value: "100K+" },
+    { label: "Concurrency", value: "Race-free" }
+  ],
+  features: [
+    "Delayed execution",
+    "Ordered scheduling",
+    "Async workers",
+    "Channel-based design"
+  ],
+  sysId: "TSCHED_GO_01"
+},
     {
         id: "03",
         title: "Fintech Core Engine",
