@@ -108,9 +108,8 @@ const projects = [
     { label: "Concurrency", value: "Race-free" }
   ],
   features: [
-    "Delayed execution",
     "Ordered scheduling",
-    "Async workers",
+    "Async workers / LinkedList Based",
     "Channel-based design"
   ],
   sysId: "TSCHED_GO_01"
