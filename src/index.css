@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&display=swap');
 @import "tailwindcss";
 
-html,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
+  height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  background-color: black;
   scroll-behavior: smooth;
   color: white;
   font-family: 'Outfit', sans-serif;
