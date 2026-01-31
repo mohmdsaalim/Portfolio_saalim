@@ -42,10 +42,10 @@ const SourceCodeButton = ({ url }) => {
             // After 5 seconds, show icon
             const showTimer = setTimeout(() => {
                 setShowIcon(true);
-                // After 2 more seconds, show text again
+                // After 30ms, show text again
                 const hideTimer = setTimeout(() => {
                     setShowIcon(false);
-                }, 2000);
+                }, 30);
                 return () => clearTimeout(hideTimer);
             }, 5000);
 
@@ -55,7 +55,7 @@ const SourceCodeButton = ({ url }) => {
         const timer = cycle();
         const interval = setInterval(() => {
             cycle();
-        }, 7000); // 5s text + 2s icon
+        }, 5030); // 5s text + 30ms icon
 
         return () => {
             clearTimeout(timer);
@@ -93,27 +93,27 @@ const projects = [
         sysId: "X81_CORE"
     },
 
-   {
-  id: "02",
-  title: "In-Memory Task Scheduler",
-  category: "Backend Systems",
-  description: "Asynchronous task scheduling engine supporting delayed execution. Designed using Go concurrency primitives with channel-based orchestration.",
-  tech: ["Go", "Goroutines", "Channels", "REST API"],
-  github: "https://github.com/mohmdsaalim/Go-Mini_Projects/tree/main/TaskScheduler-Go",
-  live: "Localhost / CLI",
-  year: "2025",
-  metrics: [
-    { label: "Latency", value: "<1ms enqueue" },
-    { label: "Tasks", value: "100K+" },
-    { label: "Concurrency", value: "Race-free" }
-  ],
-  features: [
-    "Ordered scheduling",
-    "Async workers / LinkedList Based",
-    "Channel-based design"
-  ],
-  sysId: "TSCHED_GO_01"
-},
+    {
+        id: "02",
+        title: "In-Memory Task Scheduler",
+        category: "Backend Systems",
+        description: "Asynchronous task scheduling engine supporting delayed execution. Designed using Go concurrency primitives with channel-based orchestration.",
+        tech: ["Go", "Goroutines", "Channels", "REST API"],
+        github: "https://github.com/mohmdsaalim/Go-Mini_Projects/tree/main/TaskScheduler-Go",
+        live: "Localhost / CLI",
+        year: "2025",
+        metrics: [
+            { label: "Latency", value: "<1ms enqueue" },
+            { label: "Tasks", value: "100K+" },
+            { label: "Concurrency", value: "Race-free" }
+        ],
+        features: [
+            "Ordered scheduling",
+            "Async workers / LinkedList Based",
+            "Channel-based design"
+        ],
+        sysId: "TSCHED_GO_01"
+    },
     {
         id: "03",
         title: "Fintech Core Engine",

@@ -119,9 +119,12 @@ const About = () => {
                                 <div className="p-1 bg-blue-500/10 border border-blue-500/20">
                                     <Fingerprint size={16} className="text-blue-500" />
                                 </div>
-                                <div>
+                                <div className="flex-1 overflow-hidden">
                                     <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-white/50 block">Auth_Validated</span>
-                                    <div className="h-[1px] w-16 bg-blue-500/30 mt-1" />
+                                    <div className="h-[1px] w-16 bg-blue-500/30 mt-1 mb-0.5" />
+                                    <div className="font-mono text-[9px] text-white/50 animate-name-scroll uppercase tracking-[0.4em] whitespace-nowrap">
+                                        muhammed saalim
+                                    </div>
                                 </div>
                             </div>
 

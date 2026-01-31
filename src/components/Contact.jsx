@@ -137,7 +137,7 @@ const Contact = () => {
                                                     { icon: Linkedin, url: "https://www.linkedin.com/in/muhammed-saalim-k-m-5714a2367/" },
                                                     { icon: Instagram, url: "#" }
                                                 ].map((soc, i) => (
-                                                    <a key={i} href={soc.url} className="text-white/40 hover:text-white transition-colors">
+                                                    <a key={i} href={soc.url} className="text-white/40">
                                                         <soc.icon size={14} />
                                                     </a>
                                                 ))}
